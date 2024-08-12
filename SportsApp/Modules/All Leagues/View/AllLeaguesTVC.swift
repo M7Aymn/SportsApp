@@ -45,6 +45,11 @@ class AllLeaguesTVC: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: nil)
+//        let vc = self.storyboard?.instantiateViewController(identifier: "leagueDetails") as! LeagueDetailsVC
+//        self.navigationController?.pushViewController(vc, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.

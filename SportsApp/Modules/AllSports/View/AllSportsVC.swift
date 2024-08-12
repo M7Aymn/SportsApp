@@ -44,9 +44,9 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let vc = self.storyboard?.instantiateViewController(identifier: "sportTVC") as! SportTableViewController
-//        vc.sportName = sportNames[indexPath.row]
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = self.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
+        vc.title = sportNames[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
