@@ -25,6 +25,10 @@ class AllSportsVC: UIViewController {
         
         sportsCollectionView.register(UINib(nibName: "SportCell", bundle: nil), forCellWithReuseIdentifier: "SportCell")
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Sports"
+    }
 
 }
 

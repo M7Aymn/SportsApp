@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="p5Z-2i-xfu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pts-qE-fyu">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -69,26 +70,48 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8bQ-N1-0QL" secondAttribute="bottom" id="sd9-Ai-E4B"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sports" id="sTO-5e-V9Y"/>
+                    <tabBarItem key="tabBarItem" title="Sports" image="sportscourt.fill" catalog="system" id="Ji1-3Y-Ghy"/>
                     <connections>
                         <outlet property="sportsCollectionView" destination="8bQ-N1-0QL" id="bUC-hS-k0a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782" y="-35"/>
+            <point key="canvasLocation" x="1085" y="-450"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="T7O-65-VOS">
+            <objects>
+                <tableViewController storyboardIdentifier="allLeagues" id="MEd-k7-mCi" customClass="AllLeaguesTVC" customModule="SportsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="EgF-YE-tHt">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="MEd-k7-mCi" id="Dse-8e-cZp"/>
+                            <outlet property="delegate" destination="MEd-k7-mCi" id="odG-eP-4KA"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="heart.fill" catalog="system" id="Znq-gG-JaU"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iqv-n7-Kjn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1085" y="212"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="IW0-Cc-iIS">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="p5Z-2i-xfu" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="uZw-0w-Ul9"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="s3A-RY-cjQ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Pts-qE-fyu" kind="relationship" relationship="viewControllers" id="ZkL-Hy-YP1"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="X69-i0-7Lq"/>
+                        <segue destination="MEd-k7-mCi" kind="relationship" relationship="viewControllers" id="6zx-d2-xlY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AG5-oI-sFQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -107,15 +130,16 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="frV-au-5Dx"/>
+                        <segue destination="p5Z-2i-xfu" kind="relationship" relationship="rootViewController" id="LRa-2z-Fry"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ibu-1a-vlm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1051.145038167939" y="-34.507042253521128"/>
+            <point key="canvasLocation" x="-514" y="-35"/>
         </scene>
     </scenes>
     <resources>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="sportscourt.fill" catalog="system" width="128" height="83"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
