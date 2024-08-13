@@ -22,14 +22,21 @@ class EventCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
+//        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
+        leagueImage.layer.borderWidth = 4.0
+        leagueImage.layer.borderColor = UIColor.black.cgColor
+        leagueImage.layer.cornerRadius = 10.0
+        leagueImage.clipsToBounds = true
+//        leagueImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+
     }
     
     func setupCell(event: EventModel) {
-        homeImage.kf.setImage(with: URL(string: event.homeTeamLogo))
+        homeImage.kf.setImage(with: URL(string: event.homeTeamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
         homeLabel.text = event.eventHomeTeam
-        awayImage.kf.setImage(with: URL(string: event.awayTeamLogo))
+        awayImage.kf.setImage(with: URL(string: event.awayTeamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
         awayLabel.text = event.eventAwayTeam
-        leagueImage.kf.setImage(with: URL(string: event.leagueLogo))
+        leagueImage.kf.setImage(with: URL(string: event.leagueLogo ?? ""), placeholder: UIImage(named: "leagueLogo"))
         scoreLabel.text = event.eventFinalResult
         dateLabel.text = event.eventDate
         timeLabel.text = event.eventTime

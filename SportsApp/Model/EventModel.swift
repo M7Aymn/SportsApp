@@ -13,16 +13,16 @@ struct EventModelAPIResponse: Codable {
 }
 
 struct EventModel: Codable {
-    let homeTeamLogo: String
-    let eventHomeTeam: String
+    let homeTeamLogo: String?
+    let eventHomeTeam: String?
     let homeTeamKey: Int
-    let awayTeamLogo: String
-    let eventAwayTeam: String
+    let awayTeamLogo: String?
+    let eventAwayTeam: String?
     let awayTeamKey: Int
-    let leagueLogo: String
-    let eventFinalResult: String
-    let eventDate: String
-    let eventTime: String
+    let leagueLogo: String?
+    let eventFinalResult: String?
+    let eventDate: String?
+    let eventTime: String?
 
     enum CodingKeys: String, CodingKey {
         case homeTeamLogo = "home_team_logo"

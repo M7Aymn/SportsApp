@@ -33,6 +33,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SEK-Xd-r5t">
                                 <rect key="frame" x="138.66666666666666" y="8" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="SEK-Xd-r5t" secondAttribute="height" multiplier="1:1" id="MRW-6l-gzK"/>
                                 </constraints>
