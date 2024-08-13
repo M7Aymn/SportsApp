@@ -18,16 +18,19 @@ class EventCell: UICollectionViewCell {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var leagueBackgroundView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
 //        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
-        leagueImage.layer.borderWidth = 4.0
-        leagueImage.layer.borderColor = UIColor.black.cgColor
-        leagueImage.layer.cornerRadius = 10.0
+        leagueBackgroundView.layer.borderWidth = 2.0
+        leagueBackgroundView.layer.borderColor = UIColor.green.cgColor
+        leagueBackgroundView.layer.cornerRadius = 8
+        leagueImage.layer.cornerRadius = 8
         leagueImage.clipsToBounds = true
-//        leagueImage.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        leagueBackgroundView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
 
     }
     

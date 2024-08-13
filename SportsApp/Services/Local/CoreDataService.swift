@@ -42,6 +42,7 @@ class CoreDataService: CoreDataServiceProtocol {
         leagueObject.setValue(league.countryName, forKey: "countryName")
         leagueObject.setValue(league.leagueLogo, forKey: "leagueLogo")
         leagueObject.setValue(league.countryLogo, forKey: "countryLogo")
+        leagueObject.setValue(league.leagueYear, forKey: "leagueYear")
         saveContext()
     }
     
@@ -55,10 +56,11 @@ class CoreDataService: CoreDataServiceProtocol {
                 let league = LeagueModel(
                     leagueKey: leagueObject.value(forKey: "leagueKey") as! Int,
                     leagueName: leagueObject.value(forKey: "leagueName") as! String,
-                    countryKey: leagueObject.value(forKey: "countryKey") as! Int,
-                    countryName: leagueObject.value(forKey: "countryName") as! String,
+                    countryKey: leagueObject.value(forKey: "countryKey") as! Int?,
+                    countryName: leagueObject.value(forKey: "countryName") as! String?,
                     leagueLogo: leagueObject.value(forKey: "leagueLogo") as! String?,
-                    countryLogo: leagueObject.value(forKey: "countryLogo") as! String?
+                    countryLogo: leagueObject.value(forKey: "countryLogo") as! String?,
+                    leagueYear: leagueObject.value(forKey: "leagueYear") as! String?
                 )
                 leagues.append(league)
             }
