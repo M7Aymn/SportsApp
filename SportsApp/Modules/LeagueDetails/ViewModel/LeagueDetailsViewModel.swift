@@ -8,14 +8,17 @@
 import Foundation
 
 class LeagueDetailsViewModel {
-    var nwService: NWServicing?
-    var bindResultToVC: (()->()) = {}
+    var nwService: NWServiceProtocol
+    var coreDataService: CoreDataServiceProtocol
+    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "Test", countryKey: 1, countryName: "Test", leagueLogo: "Test", countryLogo: "Test")
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
     var teams: [Team] = []
-    
+    var bindResultToVC: (()->()) = {}
+
     init() {
         nwService = NWService()
+        coreDataService = CoreDataService.shared
     }
     
 #warning("TODO: Receive sport type and league key")
@@ -26,7 +29,7 @@ class LeagueDetailsViewModel {
     
     private func getUpcomingEvents() {
         let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: 332, forDate: .comingYear)
-        nwService!.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response in
+        nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response in
             if response.success == 1 {
                 self?.upcomingEvents = response.result
                 DispatchQueue.main.async {
@@ -40,7 +43,7 @@ class LeagueDetailsViewModel {
     
     private func getLatestResults() {
         let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: 332, forDate: .pastYear)
-        nwService!.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response in
+        nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response in
             if response.success == 1 {
                 self?.latestEvents = response.result
                 self?.getTeams()
@@ -63,5 +66,17 @@ class LeagueDetailsViewModel {
         DispatchQueue.main.async {
             self.bindResultToVC()
         }
+    }
+    
+    func addToFavorites() {
+        coreDataService.addLeague(league: league)
+    }
+    
+    func removeFromFavorites() {
+        coreDataService.deleteLeague(key: league.leagueKey)
+    }
+    
+    func checkFavorite() -> Bool {
+        return coreDataService.checkFav(key: league.leagueKey)
     }
 }

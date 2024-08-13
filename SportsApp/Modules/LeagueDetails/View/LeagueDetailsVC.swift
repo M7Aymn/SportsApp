@@ -9,6 +9,12 @@ import UIKit
 
 class LeagueDetailsVC: UIViewController {
     var viewModel: LeagueDetailsViewModel!
+    var isFav = false {
+        didSet {
+            button.image = isFav ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        }
+    }
+    let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: #selector(favButtonPressed))
     
     @IBOutlet weak var leagueCollectionView: UICollectionView!
     override func viewDidLoad() {
@@ -20,6 +26,10 @@ class LeagueDetailsVC: UIViewController {
         }
         viewModel.getDetails()
         
+        button.target = self
+        self.navigationItem.rightBarButtonItem = button
+        isFav = viewModel.checkFavorite()
+        
         leagueCollectionView.delegate = self
         leagueCollectionView.dataSource = self
         
@@ -29,6 +39,22 @@ class LeagueDetailsVC: UIViewController {
         setupCollectionViewLayout()
     }
     
+    @objc func favButtonPressed() {
+        if isFav {
+            // removing from fav
+            let alert = UIAlertController(title: "Remove favorite", message: "Are you sure you want to remove this league from favorites?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { UIAlertAction in
+                self.viewModel?.removeFromFavorites()
+                self.isFav.toggle()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        } else {
+            // adding to fav
+            self.viewModel?.addToFavorites()
+            isFav.toggle()
+        }
+    }
 }
 
 
