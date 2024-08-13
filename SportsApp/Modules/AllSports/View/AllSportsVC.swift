@@ -10,6 +10,7 @@ import UIKit
 class AllSportsVC: UIViewController {
 
     let sportNames = ["Football", "Basketball", "Cricket", "Tennis"]
+    let sportTypes: [Sport] = [.football, .basketball, .cricket, .tennis]
     let sportImages = [
         UIImage(systemName: "soccerball"),
         UIImage(systemName: "basketball.fill"),
@@ -46,6 +47,8 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
         vc.title = sportNames[indexPath.row]
+        vc.isFav = false
+        vc.viewModel.sport = sportTypes[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 class LeagueDetailsVC: UIViewController {
-    var viewModel: LeagueDetailsViewModel!
+    let viewModel = LeagueDetailsViewModel()
     var isFav = false {
         didSet {
             button.image = isFav ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
@@ -20,7 +20,7 @@ class LeagueDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = LeagueDetailsViewModel()
+        
         viewModel.bindResultToVC = {
             self.leagueCollectionView.reloadData()
         }
@@ -44,14 +44,14 @@ class LeagueDetailsVC: UIViewController {
             // removing from fav
             let alert = UIAlertController(title: "Remove favorite", message: "Are you sure you want to remove this league from favorites?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { UIAlertAction in
-                self.viewModel?.removeFromFavorites()
+                self.viewModel.removeFromFavorites()
                 self.isFav.toggle()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(alert, animated: true)
         } else {
             // adding to fav
-            self.viewModel?.addToFavorites()
+            self.viewModel.addToFavorites()
             isFav.toggle()
         }
     }

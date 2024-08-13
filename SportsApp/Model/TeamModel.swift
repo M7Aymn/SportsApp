@@ -17,7 +17,7 @@ struct Teams {
     static func getTeams(events: [EventModel]) -> [Team] {
         var teams: [Team] = []
         for event in events {
-            teams.append(Team(teamKey: event.homeTeamKey, teamName: event.eventHomeTeam, teamLogo: event.homeTeamLogo))
+            teams.append(Team(teamKey: event.homeTeamKey, teamName: event.eventHomeTeam ?? "", teamLogo: event.homeTeamLogo ?? ""))
         }
         return teams
     }

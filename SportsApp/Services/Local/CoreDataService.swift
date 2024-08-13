@@ -61,7 +61,6 @@ class CoreDataService: CoreDataServiceProtocol {
                     countryLogo: leagueObject.value(forKey: "countryLogo") as! String?
                 )
                 leagues.append(league)
-                print(league.leagueKey)
             }
         } catch let error as NSError{
             print(error)

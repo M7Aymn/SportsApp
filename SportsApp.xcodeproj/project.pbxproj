@@ -182,8 +182,8 @@
 		C686BC512C6A64D1005FCD5B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C686BC5E2C6A6B75005FCD5B /* SportCell */,
 				C686BC502C6A64D1005FCD5B /* AllSportsVC.swift */,
+				C686BC5E2C6A6B75005FCD5B /* SportCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -282,8 +282,8 @@
 		E2B4C2232C6A75C800F4ECC4 /* All Leagues */ = {
 			isa = PBXGroup;
 			children = (
-				E2B4C2252C6A75D600F4ECC4 /* ViewModel */,
 				E2B4C2242C6A75D100F4ECC4 /* View */,
+				E2B4C2252C6A75D600F4ECC4 /* ViewModel */,
 			);
 			path = "All Leagues";
 			sourceTree = "<group>";
