@@ -10,7 +10,7 @@ import Foundation
 class LeagueDetailsViewModel {
     var nwService: NWServiceProtocol
     var coreDataService: CoreDataServiceProtocol
-    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "Test", countryKey: 1, countryName: "Test", leagueLogo: "Test", countryLogo: "Test")
+    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "Test", countryKey: 1, countryName: "Test", leagueLogo: "Test", countryLogo: "Test", leagueYear: "Test")
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
     var teams: [Team] = []
@@ -29,29 +29,29 @@ class LeagueDetailsViewModel {
     
     private func getUpcomingEvents() {
         let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .comingYear)
-        nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response in
-            if response.success == 1 {
-                self?.upcomingEvents = response.result
-                DispatchQueue.main.async {
-                    self?.bindResultToVC()
-                }
-            } else {
-                print("API Response error")
+        nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            self?.upcomingEvents = response!.result
+            DispatchQueue.main.async {
+                self?.bindResultToVC()
             }
         }
     }
     
     private func getLatestResults() {
         let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .pastYear)
-        nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response in
-            if response.success == 1 {
-                self?.latestEvents = response.result
-                self?.getTeams()
-                DispatchQueue.main.async {
-                    self?.bindResultToVC()
-                }
-            } else {
-                print("API Response error")
+        nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            self?.latestEvents = response!.result
+            self?.getTeams()
+            DispatchQueue.main.async {
+                self?.bindResultToVC()
             }
         }
     }

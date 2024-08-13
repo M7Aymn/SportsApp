@@ -13,6 +13,9 @@ class SportCell: UICollectionViewCell {
     @IBOutlet weak var sportImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        sportImage.layer.cornerRadius = 16
+        sportImage.layer.borderWidth = 4
+        sportImage.layer.borderColor = UIColor.blue.cgColor
     }
     
     func setupSport(name: String, image: UIImage) {

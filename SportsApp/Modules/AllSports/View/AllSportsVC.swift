@@ -12,10 +12,10 @@ class AllSportsVC: UIViewController {
     let sportNames = ["Football", "Basketball", "Cricket", "Tennis"]
     let sportTypes: [Sport] = [.football, .basketball, .cricket, .tennis]
     let sportImages = [
-        UIImage(systemName: "soccerball"),
-        UIImage(systemName: "basketball.fill"),
-        UIImage(systemName: "cricket.ball.fill"),
-        UIImage(systemName: "tennisball.fill")
+        UIImage(named: "football"),
+        UIImage(named: "basketball"),
+        UIImage(named: "cricket"),
+        UIImage(named: "tennis")
     ]
     
     @IBOutlet weak var sportsCollectionView: UICollectionView!
@@ -54,4 +54,20 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
 }
 
+extension AllSportsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width/2 - 15, height: UIScreen.main.bounds.width/2 - 15)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+            return 0
+        }
 
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+            return 10
+        }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+}

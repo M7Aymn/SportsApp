@@ -15,10 +15,12 @@ struct LeagueModelAPIResponse: Codable {
 struct LeagueModel: Codable {
     let leagueKey: Int
     let leagueName: String
-    let countryKey: Int
-    let countryName: String
-    let leagueLogo, countryLogo: String?
-
+    let countryKey: Int?
+    let countryName: String?
+    let leagueLogo: String?
+    let countryLogo: String?
+    let leagueYear: String?
+    
     enum CodingKeys: String, CodingKey {
         case leagueKey = "league_key"
         case leagueName = "league_name"
@@ -26,5 +28,6 @@ struct LeagueModel: Codable {
         case countryName = "country_name"
         case leagueLogo = "league_logo"
         case countryLogo = "country_logo"
+        case leagueYear = "league_year"
     }
 }
