@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class EventCell: UICollectionViewCell {
     @IBOutlet weak var homeImage: UIImageView!
@@ -21,18 +22,21 @@ class EventCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
-        setupDummyCell()
     }
     
-    func setupDummyCell() {
-        homeImage.image = UIImage(systemName: "heart")
-        homeLabel.text = "Home"
-        awayImage.image = UIImage(systemName: "heart")
-        awayLabel.text = "Away"
-        leagueImage.image = UIImage(systemName: "heart")
-        scoreLabel.text = "1 - 2"
-        dateLabel.text = "2024-8-12"
-        timeLabel.text = "9:00"
+    func setupCell(event: EventModel) {
+        homeImage.kf.setImage(with: URL(string: event.homeTeamLogo))
+        homeLabel.text = event.eventHomeTeam
+        awayImage.kf.setImage(with: URL(string: event.awayTeamLogo))
+        awayLabel.text = event.eventAwayTeam
+        leagueImage.kf.setImage(with: URL(string: event.leagueLogo))
+        scoreLabel.text = event.eventFinalResult
+        dateLabel.text = event.eventDate
+        timeLabel.text = event.eventTime
+        
+        if event.eventFinalResult == "-" {
+            scoreLabel.text = " "
+        }
     }
 
 }
