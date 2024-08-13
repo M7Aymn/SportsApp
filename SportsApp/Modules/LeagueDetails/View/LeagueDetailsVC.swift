@@ -28,6 +28,7 @@ class LeagueDetailsVC: UIViewController {
         
         button.target = self
         self.navigationItem.rightBarButtonItem = button
+        isFav = viewModel.checkFavorite()
         
         leagueCollectionView.delegate = self
         leagueCollectionView.dataSource = self
@@ -43,14 +44,14 @@ class LeagueDetailsVC: UIViewController {
             // removing from fav
             let alert = UIAlertController(title: "Remove favorite", message: "Are you sure you want to remove this league from favorites?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { UIAlertAction in
-#warning("TODO: Remove league from CoreData")
+                self.viewModel?.removeFromFavorites()
                 self.isFav.toggle()
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(alert, animated: true)
         } else {
             // adding to fav
-#warning("TODO: Add league to CoreData")
+            self.viewModel?.addToFavorites()
             isFav.toggle()
         }
     }

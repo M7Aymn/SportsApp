@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol NWServicing {
+protocol NWServiceProtocol {
     func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping(T)->Void)
 }
 
-class NWService: NWServicing {
+class NWService: NWServiceProtocol {
     func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping(T)->Void) {
         guard let url = url else {
             print("Invalid URL")
