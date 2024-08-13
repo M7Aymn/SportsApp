@@ -8,9 +8,18 @@
 import UIKit
 
 class LeagueDetailsVC: UIViewController {
+    var viewModel: LeagueDetailsViewModel!
+    
     @IBOutlet weak var leagueCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = LeagueDetailsViewModel()
+        viewModel.bindResultToVC = {
+            self.leagueCollectionView.reloadData()
+        }
+        viewModel.getDetails()
+        
         leagueCollectionView.delegate = self
         leagueCollectionView.dataSource = self
         
@@ -31,12 +40,14 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-            //TODO: fill this
-            //        case 0:
-            //        case 1:
-            //        case 2:
+        case 0:
+            return viewModel.upcomingEvents.count
+        case 1:
+            return viewModel.latestEvents.count
+        case 2:
+            return viewModel.teams.count
         default:
-            return 10
+            return 0
         }
     }
     

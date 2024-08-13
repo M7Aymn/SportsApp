@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C663FBA92C6B475E00FB1372 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663FBA82C6B475E00FB1372 /* EventModel.swift */; };
+		C663FBAB2C6B47FD00FB1372 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663FBAA2C6B47FD00FB1372 /* API.swift */; };
+		C663FBAD2C6B514A00FB1372 /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663FBAC2C6B514A00FB1372 /* TeamModel.swift */; };
 		C686BC312C6A6489005FCD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C686BC302C6A6489005FCD5B /* AppDelegate.swift */; };
 		C686BC332C6A6489005FCD5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C686BC322C6A6489005FCD5B /* SceneDelegate.swift */; };
 		C686BC382C6A6489005FCD5B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = C686BC372C6A6489005FCD5B /* Base */; };
@@ -34,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C663FBA82C6B475E00FB1372 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		C663FBAA2C6B47FD00FB1372 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		C663FBAC2C6B514A00FB1372 /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		C686BC2D2C6A6489005FCD5B /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C686BC302C6A6489005FCD5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C686BC322C6A6489005FCD5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 		C686BC4C2C6A64D1005FCD5B /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				C663FBAA2C6B47FD00FB1372 /* API.swift */,
 				C686BC4B2C6A64D1005FCD5B /* NWService.swift */,
 			);
 			path = Remote;
@@ -142,6 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				C686BC4E2C6A64D1005FCD5B /* LeagueModel.swift */,
+				C663FBA82C6B475E00FB1372 /* EventModel.swift */,
+				C663FBAC2C6B514A00FB1372 /* TeamModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -357,15 +366,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6D2E4A42C6AC018006A4698 /* TeamCell.swift in Sources */,
+				C663FBAB2C6B47FD00FB1372 /* API.swift in Sources */,
 				C686BC6C2C6A7E6B005FCD5B /* LeagueDetailsVC.swift in Sources */,
 				C686BC582C6A64D1005FCD5B /* LeagueModel.swift in Sources */,
 				C686BC562C6A64D1005FCD5B /* CoreDataService.swift in Sources */,
 				C686BC6A2C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift in Sources */,
+				C663FBAD2C6B514A00FB1372 /* TeamModel.swift in Sources */,
 				E2B4C2272C6A760600F4ECC4 /* AllLeaguesTVC.swift in Sources */,
 				C686BC312C6A6489005FCD5B /* AppDelegate.swift in Sources */,
 				E2B4C2292C6A763B00F4ECC4 /* AllLeaguesViewModel.swift in Sources */,
 				C686BC5A2C6A64D1005FCD5B /* AllSportsViewModel.swift in Sources */,
 				C686BC3B2C6A6489005FCD5B /* SportsApp.xcdatamodeld in Sources */,
+				C663FBA92C6B475E00FB1372 /* EventModel.swift in Sources */,
 				C686BC652C6A7DD8005FCD5B /* EventCell.swift in Sources */,
 				C686BC592C6A64D1005FCD5B /* AllSportsVC.swift in Sources */,
 				C6D2E4A72C6AC31A006A4698 /* SectionHeader.swift in Sources */,
