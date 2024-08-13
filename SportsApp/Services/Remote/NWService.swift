@@ -6,37 +6,28 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol NWServiceProtocol {
-    func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping(T)->Void)
+    func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping (T?,Error?)->Void)
 }
 
 class NWService: NWServiceProtocol {
-    func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping(T)->Void) {
+    func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping (T?,Error?)->Void) {
         guard let url = url else {
-            print("Invalid URL")
+            let error = NSError(domain: "URL error", code: 0, userInfo: [NSLocalizedDescriptionKey : "URL is nil"])
+            completion(nil,error)
             return
         }
-        let request = URLRequest(url: url)
-        let session = URLSession(configuration: .default)
-        let task = session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                return
-            }
-            guard let data = data else {
-                print("error with data")
-                return
-            }
-            
-            do {
-                let decoded = try JSONDecoder().decode(model, from: data)
-                completion(decoded)
-            } catch {
-                print(error.localizedDescription)
-                return
+        AF.request(url).validate().responseDecodable(of: model.self) { response in
+            switch response.result{
+            case .success(let decodedResult):
+                print(decodedResult)
+                completion(decodedResult,nil)
+            case .failure(let error):
+                print(error)
+                completion(nil,error)
             }
         }
-        task.resume()
     }
 }
