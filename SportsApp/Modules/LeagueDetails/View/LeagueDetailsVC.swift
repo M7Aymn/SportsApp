@@ -55,12 +55,15 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
         switch indexPath.section {
         case 0:
             let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
+            cell.setupCell(event: viewModel.upcomingEvents[indexPath.row])
             return cell
         case 1:
             let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
+            cell.setupCell(event: viewModel.latestEvents[indexPath.row])
             return cell
         case 2:
             let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath) as! TeamCell
+            cell.setupCell(team: viewModel.teams[indexPath.row])
             return cell
         default:
             return UICollectionViewCell()

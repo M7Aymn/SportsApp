@@ -18,6 +18,7 @@ class LeagueDetailsViewModel {
         nwService = NWService()
     }
     
+#warning("TODO: Receive sport type and league key")
     func getDetails() {
         getUpcomingEvents()
         getLatestResults()
@@ -27,8 +28,8 @@ class LeagueDetailsViewModel {
         let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: 332, forDate: .comingYear)
         nwService!.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response in
             if response.success == 1 {
+                self?.upcomingEvents = response.result
                 DispatchQueue.main.async {
-                    self?.upcomingEvents = response.result
                     self?.bindResultToVC()
                 }
             } else {
@@ -41,9 +42,9 @@ class LeagueDetailsViewModel {
         let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: 332, forDate: .pastYear)
         nwService!.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response in
             if response.success == 1 {
+                self?.latestEvents = response.result
+                self?.getTeams()
                 DispatchQueue.main.async {
-                    self?.latestEvents = response.result
-                    self?.getTeams()
                     self?.bindResultToVC()
                 }
             } else {
@@ -59,6 +60,8 @@ class LeagueDetailsViewModel {
             teams.append(team)
         }
         self.teams = teams
-        bindResultToVC()
+        DispatchQueue.main.async {
+            self.bindResultToVC()
+        }
     }
 }

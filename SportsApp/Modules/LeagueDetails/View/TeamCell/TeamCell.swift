@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TeamCell: UICollectionViewCell {
     @IBOutlet weak var teamImage: UIImageView!
@@ -15,12 +16,11 @@ class TeamCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
         teamImage.layer.cornerRadius = teamImage.frame.width / 2
-        setupCell()
     }
     
-    func setupCell() {
-        teamLabel.text = "Team Name"
-        teamImage.image = UIImage(systemName: "heart")
+    func setupCell(team: Team) {
+        teamLabel.text = team.teamName
+        teamImage.kf.setImage(with: URL(string: team.teamLogo))
     }
     
 }
