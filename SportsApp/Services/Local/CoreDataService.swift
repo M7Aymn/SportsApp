@@ -29,7 +29,7 @@ class CoreDataService: CoreDataServiceProtocol {
         do {
             try managedContext.save()
         } catch let error as NSError {
-            print(error)
+            print(error.localizedDescription)
         }
     }
     
@@ -65,7 +65,7 @@ class CoreDataService: CoreDataServiceProtocol {
                 leagues.append(league)
             }
         } catch let error as NSError{
-            print(error)
+            print(error.localizedDescription)
         }
         return leagues
     }
@@ -81,7 +81,7 @@ class CoreDataService: CoreDataServiceProtocol {
             }
             saveContext()
         } catch let error as NSError {
-            print(error)
+            print(error.localizedDescription)
         }
     }
     
@@ -94,7 +94,7 @@ class CoreDataService: CoreDataServiceProtocol {
             let leagueObjects = try managedContext.fetch(fetchRequest)
             return !leagueObjects.isEmpty
         } catch let error as NSError{
-            print(error)
+            print(error.localizedDescription)
         }
         return false
     }
