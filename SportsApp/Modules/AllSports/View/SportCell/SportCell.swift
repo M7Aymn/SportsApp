@@ -18,9 +18,9 @@ class SportCell: UICollectionViewCell {
         sportImage.layer.borderColor = UIColor.blue.cgColor
     }
     
-    func setupSport(name: String, image: UIImage) {
-        sportLabel.text = name
-        sportImage.image = image
+    func setupSport(title: String, image: UIImage?) {
+        sportLabel.text = title
+        sportImage.image = image ?? UIImage(systemName: "sportscourt.circle.fill")
     }
 
 }

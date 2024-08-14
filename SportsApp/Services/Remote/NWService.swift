@@ -22,10 +22,9 @@ class NWService: NWServiceProtocol {
         AF.request(url).validate().responseDecodable(of: model.self) { response in
             switch response.result{
             case .success(let decodedResult):
-                print(decodedResult)
                 completion(decodedResult,nil)
             case .failure(let error):
-                print(error)
+                print(error.localizedDescription)
                 completion(nil,error)
             }
         }

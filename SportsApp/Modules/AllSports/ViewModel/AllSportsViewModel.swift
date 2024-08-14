@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+class AllSportsViewModel {
+    let sports: [Sport] = [.football, .basketball, .cricket, .tennis]
+    var navigateToAllLeaguesTVC: (Int)->() = {_ in}
+}
