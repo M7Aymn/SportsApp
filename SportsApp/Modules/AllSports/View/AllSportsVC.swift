@@ -28,11 +28,11 @@ class AllSportsVC: UIViewController {
         sportsCollectionView.register(UINib(nibName: "SportCell", bundle: nil), forCellWithReuseIdentifier: "SportCell")
         
         viewModel.navigateToAllLeaguesTVC = { index in
-            let vc = self.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
-            vc.title = self.viewModel.sports[index].title
-            vc.isFav = false
-            vc.viewModel.sport = self.viewModel.sports[index]
-            self.navigationController?.pushViewController(vc, animated: true)
+            let allLeaguesVC = self.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
+            allLeaguesVC.title = self.viewModel.sports[index].title
+            allLeaguesVC.viewModel.isFav = false
+            allLeaguesVC.viewModel.sport = self.viewModel.sports[index]
+            self.navigationController?.pushViewController(allLeaguesVC, animated: true)
         }
     }
     

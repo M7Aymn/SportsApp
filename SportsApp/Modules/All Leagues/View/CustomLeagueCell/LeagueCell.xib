@@ -4,7 +4,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -25,27 +27,49 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMj-d9-kr5">
-                        <rect key="frame" x="82" y="16" width="222" height="64"/>
+                        <rect key="frame" x="82" y="16" width="171" height="64"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-qT-kqi">
+                        <rect key="frame" x="265.33333333333331" y="31.000000000000004" width="54.666666666666686" height="34.333333333333343"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="play.rectangle.fill" catalog="system"/>
+                        <buttonConfiguration key="configuration" style="plain">
+                            <imageReference key="image" image="play.rectangle.fill" catalog="system" symbolScale="large"/>
+                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="youtubeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PB8-Kw-WgU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Rjs-8M-99y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Gpd-Hv-iAR"/>
+                    <constraint firstAttribute="trailing" secondItem="PGc-qT-kqi" secondAttribute="trailing" id="YhD-w3-nhp"/>
                     <constraint firstItem="Rjs-8M-99y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cgU-Nl-9Vd"/>
                     <constraint firstItem="uMj-d9-kr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="d8Y-64-Hb0"/>
                     <constraint firstAttribute="bottom" secondItem="uMj-d9-kr5" secondAttribute="bottom" constant="16" id="f8i-bc-X16"/>
-                    <constraint firstAttribute="trailing" secondItem="uMj-d9-kr5" secondAttribute="trailing" constant="16" id="jmU-kx-ghv"/>
+                    <constraint firstAttribute="trailing" secondItem="uMj-d9-kr5" secondAttribute="trailing" constant="67" id="jmU-kx-ghv"/>
+                    <constraint firstItem="PGc-qT-kqi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lwx-4g-NX4"/>
                     <constraint firstItem="uMj-d9-kr5" firstAttribute="leading" secondItem="Rjs-8M-99y" secondAttribute="trailing" constant="16" id="yt4-IV-Px7"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="button" destination="PGc-qT-kqi" id="YzP-ua-Vi9"/>
                 <outlet property="leagueImage" destination="Rjs-8M-99y" id="Yd7-51-BZA"/>
                 <outlet property="leagueName" destination="uMj-d9-kr5" id="x7u-P2-cma"/>
             </connections>
             <point key="canvasLocation" x="129.7709923664122" y="-30.985915492957748"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
