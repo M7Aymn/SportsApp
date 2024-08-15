@@ -14,12 +14,33 @@ class LeagueDetailsVC: UIViewController {
             button.image = isFav ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         }
     }
+    let indicator = UIActivityIndicatorView(style: .large)
     let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: #selector(favButtonPressed))
     
     @IBOutlet weak var leagueCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "CHANGE THIS"
         
+        indicator.center = view.center
+        view.addSubview(indicator)
+        
+        viewModel.startIndicator = {
+            self.indicator.startAnimating()
+        }
+        
+        viewModel.stopIndicator = {
+            self.indicator.stopAnimating()
+        }
+        
+        viewModel.noResults = {
+            self.indicator.stopAnimating()
+            self.leagueCollectionView.isHidden = true
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+            imageView.center = self.view.center
+            imageView.image = UIImage(named: "noResults")
+            self.view.addSubview(imageView)
+        }
         
         viewModel.bindResultToVC = {
             self.leagueCollectionView.reloadData()
@@ -131,7 +152,7 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(170))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         
@@ -162,7 +183,7 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(170))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
         
@@ -187,7 +208,7 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 15)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 15, trailing: 0)
         section.orthogonalScrollingBehavior = .continuous
         
         if viewModel.teams.count != 0 {

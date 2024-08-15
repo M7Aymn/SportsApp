@@ -34,6 +34,12 @@ class AllSportsVC: UIViewController {
             allLeaguesVC.viewModel.sport = self.viewModel.sports[index]
             self.navigationController?.pushViewController(allLeaguesVC, animated: true)
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange),name: UIDevice.orientationDidChangeNotification, object: nil)
+    }
+    
+    
+    @objc func orientationDidChange() {
+        sportsCollectionView.reloadData()
     }
     
 }
@@ -57,7 +63,11 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension AllSportsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width/2 - 15, height: UIScreen.main.bounds.width/2 - 15)
+//        return CGSize(width: UIScreen.main.bounds.width/2 - 15, height: UIScreen.main.bounds.width/2 - 15)
+        let safeAreaInsets = view.safeAreaInsets
+        let safeAreaWidth = view.bounds.width - safeAreaInsets.left - safeAreaInsets.right
+        let size = CGSize(width: safeAreaWidth/2 - 15, height: safeAreaWidth/2 - 15)
+        return size
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

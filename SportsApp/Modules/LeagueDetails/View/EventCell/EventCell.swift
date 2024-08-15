@@ -24,13 +24,15 @@ class EventCell: UICollectionViewCell {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
 //        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
-        leagueBackgroundView.layer.borderWidth = 2.0
-        leagueBackgroundView.layer.borderColor = UIColor.green.cgColor
-        leagueBackgroundView.layer.cornerRadius = 8
-        leagueImage.layer.cornerRadius = 8
-        leagueImage.clipsToBounds = true
-        leagueBackgroundView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+//        leagueBackgroundView.layer.borderWidth = 2.0
+//        leagueBackgroundView.layer.borderColor = UIColor.green.cgColor
+//        leagueBackgroundView.layer.cornerRadius = 8
+//        leagueImage.layer.cornerRadius = 8
+//        leagueImage.clipsToBounds = true
+//        leagueBackgroundView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6).translatedBy(x: 0, y: -25)
+//        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+//        leagueBackgroundView.alpha = 0.66
+        leagueBackgroundView.isHidden = true
 
     }
     

@@ -18,7 +18,7 @@ struct API {
     }
     
     static func getLeagueDetailsURL(sport: Sport, leagueID: Int, forDate range: DateRange) -> URL? {
-        return URL(string: baseURL + sport.endpoint + leagueDetails + "\(leagueID)" + range.rawValue + apiKey)
+        return URL(string: baseURL + sport.endpoint + leagueDetails + "\(leagueID)" + range.get + apiKey)
     }
 }
 
@@ -42,6 +42,21 @@ enum Sport: String {
 }
 
 enum DateRange: String {
-    case pastYear = "&from=2023-08-20&to=2024-08-20"
-    case comingYear = "&from=2024-08-20&to=2025-08-20"
+    case prevYear
+    case nextYear
+    
+    var get: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let currentDate = Date()
+        
+        switch self {
+        case .prevYear:
+            let pastYear = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)!
+            return "&from=\(formatter.string(from: pastYear))&to=\(formatter.string(from: currentDate))"
+        case .nextYear:
+            let comingYear = Calendar.current.date(byAdding: .year, value: 1, to: currentDate)!
+            return "&from=\(formatter.string(from: currentDate))&to=\(formatter.string(from: comingYear))"
+        }
+    }
 }

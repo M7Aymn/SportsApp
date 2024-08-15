@@ -74,5 +74,9 @@ class AllLeaguesTVC: UITableViewController {
         webViewController.urlString = viewModel.getYouTubeChannelURL(for: league)
             navigationController?.pushViewController(webViewController, animated: true)
         }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 
 }

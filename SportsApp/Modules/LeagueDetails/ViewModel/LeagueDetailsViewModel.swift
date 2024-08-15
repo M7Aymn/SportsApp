@@ -15,6 +15,17 @@ class LeagueDetailsViewModel {
     var latestEvents: [EventModel] = []
     var teams: [Team] = []
     var bindResultToVC: (()->()) = {}
+    var startIndicator: (()->()) = {}
+    var stopIndicator: (()->()) = {}
+    var noResults: (()->()) = {}
+    
+    var remainingFailures = 2 {
+        didSet {
+            if remainingFailures == 0 {
+                noResults()
+            }
+        }
+    }
 
     init() {
         nwService = NWService()
@@ -28,30 +39,46 @@ class LeagueDetailsViewModel {
     }
     
     private func getUpcomingEvents() {
-        let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .comingYear)
+        startIndicator()
+        let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .nextYear)
         nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
+                self?.remainingFailures -= 1
                 return
             }
-            self?.upcomingEvents = response!.result
+            guard let response = response else {
+                print("No data in response")
+                self?.remainingFailures -= 1
+                return
+            }
+            self?.upcomingEvents = response.result
             DispatchQueue.main.async {
                 self?.bindResultToVC()
+                self?.stopIndicator()
             }
         }
     }
     
     private func getLatestResults() {
-        let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .pastYear)
+        startIndicator()
+        let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .prevYear)
         nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
+                self?.remainingFailures -= 1
                 return
             }
-            self?.latestEvents = response!.result
+            guard let response = response else {
+                print("No data in response")
+                self?.remainingFailures -= 1
+                return
+            }
+            self?.latestEvents = response.result
             self?.getTeams()
             DispatchQueue.main.async {
                 self?.bindResultToVC()
+                self?.stopIndicator()
             }
         }
     }
