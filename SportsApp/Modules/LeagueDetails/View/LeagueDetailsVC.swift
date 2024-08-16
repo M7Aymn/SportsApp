@@ -20,7 +20,6 @@ class LeagueDetailsVC: UIViewController {
     @IBOutlet weak var leagueCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "CHANGE THIS"
         
         indicator.center = view.center
         view.addSubview(indicator)

@@ -40,10 +40,18 @@ class AllLeaguesViewModel{
         })
     }
     
-    func getYouTubeChannelURL(for league: LeagueModel) -> String? {
+    func getYouTubeChannelURL(for league: LeagueModel) -> URL? {
         let leagueName = league.leagueName.replacingOccurrences(of: " ", with: "")
         let youtubeUrlString = "https://www.youtube.com/@\(leagueName)"
-            return youtubeUrlString
-        }
+        return URL(string: youtubeUrlString)
+    }
+    
+    func getNumberOfleagues()->Int{
+        return leagues.count
+    }
+    
+    func getLeague(index: Int)->LeagueModel{
+        return leagues[index]
+    }
     
 }

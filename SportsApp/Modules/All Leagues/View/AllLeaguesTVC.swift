@@ -42,17 +42,16 @@ class AllLeaguesTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return viewModel.leagues.count
+        return viewModel.getNumberOfleagues()
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell", for: indexPath) as! LeagueCell
-        let selectedLeague = viewModel.leagues[indexPath.row]
+        let selectedLeague = viewModel.getLeague(index: indexPath.row)
         cell.setupCell(league: selectedLeague)
         cell.buttonTapped = {
-            self.navigateToWebView(for: selectedLeague)
+            self.navigateToSafari(for: selectedLeague)
         }
         return cell
     }
@@ -65,18 +64,19 @@ class AllLeaguesTVC: UITableViewController {
             if segue.identifier == "leagueDetailsSegue" {
                 if let nextViewController = segue.destination as? LeagueDetailsVC {
                     nextViewController.viewModel.league = sender as! LeagueModel
+                    nextViewController.title = nextViewController.viewModel.league.leagueName
                 }
             }
         }
     
-    private func navigateToWebView(for league: LeagueModel) {
-            let webViewController = leagueYoutubeWebViewVC()
-        webViewController.urlString = viewModel.getYouTubeChannelURL(for: league)
-            navigationController?.pushViewController(webViewController, animated: true)
-        }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    private func navigateToSafari(for league: LeagueModel) {
+        if let url = self.viewModel.getYouTubeChannelURL(for: league){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
     }
 
 }
