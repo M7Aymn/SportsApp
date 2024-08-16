@@ -10,10 +10,11 @@ import Foundation
 class LeagueDetailsViewModel {
     var nwService: NWServiceProtocol
     var coreDataService: CoreDataServiceProtocol
-    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "Test", countryKey: 1, countryName: "Test", leagueLogo: "Test", countryLogo: "Test", leagueYear: "Test")
+    var sport: Sport = .football
+    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "MLS", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
-    var teams: [Team] = []
+    var teams: [TeamModelFromEvents] = []
     var bindResultToVC: (()->()) = {}
     var startIndicator: (()->()) = {}
     var stopIndicator: (()->()) = {}
@@ -32,7 +33,6 @@ class LeagueDetailsViewModel {
         coreDataService = CoreDataService.shared
     }
     
-#warning("TODO: Receive sport type and league key")
     func getDetails() {
         getUpcomingEvents()
         getLatestResults()
@@ -40,7 +40,7 @@ class LeagueDetailsViewModel {
     
     private func getUpcomingEvents() {
         startIndicator()
-        let upcomingURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .nextYear)
+        let upcomingURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .nextYear)
         nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -62,7 +62,7 @@ class LeagueDetailsViewModel {
     
     private func getLatestResults() {
         startIndicator()
-        let latestURL = API.getLeagueDetailsURL(sport: .football, leagueID: league.leagueKey, forDate: .prevYear)
+        let latestURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .prevYear)
         nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
@@ -84,12 +84,7 @@ class LeagueDetailsViewModel {
     }
     
     private func getTeams() {
-        var teams: [Team] = []
-        for event in latestEvents {
-            let team = Team(teamKey: event.homeTeamKey, teamName: event.eventHomeTeam ?? "", teamLogo: event.homeTeamLogo ?? "")
-            teams.append(team)
-        }
-        self.teams = teams
+        teams = TeamsFromEventGenerator.getTeams(events: latestEvents)
         DispatchQueue.main.async {
             self.bindResultToVC()
         }

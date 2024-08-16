@@ -57,14 +57,15 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: viewModel.leagues[indexPath.row])
+        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: (viewModel.sport, viewModel.leagues[indexPath.row]))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "leagueDetailsSegue" {
                 if let nextViewController = segue.destination as? LeagueDetailsVC {
-                    nextViewController.viewModel.league = sender as! LeagueModel
-                    nextViewController.title = nextViewController.viewModel.league.leagueName
+                    let (sport, league) = sender as! (Sport, LeagueModel)
+                    nextViewController.viewModel.sport = sport
+                    nextViewController.viewModel.league = league
                 }
             }
         }

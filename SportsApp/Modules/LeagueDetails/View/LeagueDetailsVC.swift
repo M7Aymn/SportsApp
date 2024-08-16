@@ -20,6 +20,7 @@ class LeagueDetailsVC: UIViewController {
     @IBOutlet weak var leagueCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = viewModel.league.leagueName
         
         indicator.center = view.center
         view.addSubview(indicator)
@@ -151,7 +152,7 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.85), heightDimension: .absolute(180))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         
