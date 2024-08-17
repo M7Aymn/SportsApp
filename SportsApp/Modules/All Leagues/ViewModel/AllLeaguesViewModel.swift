@@ -20,7 +20,6 @@ class AllLeaguesViewModel{
         self.coreDataService = CoreDataService.shared
     }
     
-    func isFavouriteScreen() -> Bool {return isFav}
     
     func getFavouriteLeagues(){
         leagues = coreDataService?.fetchLeagues() ?? []
@@ -38,6 +37,14 @@ class AllLeaguesViewModel{
                 print(error!.localizedDescription)
             }
         })
+    }
+    
+    func loadLeaguesTable(){
+        if isFav{
+            getFavouriteLeagues()
+        } else {
+            getLeaguesFromNetwork()
+        }
     }
     
     func getYouTubeChannelURL(for league: LeagueModel) -> URL? {
