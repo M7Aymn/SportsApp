@@ -49,15 +49,20 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: (viewModel.sport, viewModel.leagues[indexPath.row]))
+        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "leagueDetailsSegue" {
                 if let nextViewController = segue.destination as? LeagueDetailsVC {
-                    let (sport, league) = sender as! (Sport, LeagueModel)
-                    nextViewController.viewModel.sport = sport
-                    nextViewController.viewModel.league = league
+                    let index = sender as! Int
+#warning("move this function to viewModel and give it only indexPath.row")
+                    if viewModel.isFav {
+                        nextViewController.viewModel.sport = viewModel.sports[index]
+                    } else {
+                        nextViewController.viewModel.sport = viewModel.sport ?? .football
+                    }
+                    nextViewController.viewModel.league = viewModel.leagues[index]
                 }
             }
         }
