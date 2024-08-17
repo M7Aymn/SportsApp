@@ -20,9 +20,9 @@ class TeamCell: UICollectionViewCell {
 //        teamImage.layer.cornerRadius = teamImage.frame.width / 2
     }
     
-    func setupCell(team: TeamModelFromEvents) {
+    func setupCell(team: TeamModel) {
         teamLabel.text = team.teamName
-        teamImage.kf.setImage(with: URL(string: team.teamLogo), placeholder: UIImage(named: "teamLogo"))
+        teamImage.kf.setImage(with: URL(string: team.teamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
     }
     
 }

@@ -8,5 +8,6 @@
         <attribute name="leagueLogo" optional="YES" attributeType="String"/>
         <attribute name="leagueName" optional="YES" attributeType="String"/>
         <attribute name="leagueYear" optional="YES" attributeType="String"/>
+        <attribute name="sport" optional="YES" attributeType="String"/>
     </entity>
 </model>

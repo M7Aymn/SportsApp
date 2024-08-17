@@ -13,6 +13,7 @@ class AllLeaguesViewModel{
     var coreDataService: CoreDataServiceProtocol?
     var sport : Sport?
     var leagues : [LeagueModel] = []
+    var sports : [Sport] = []
     var bindResultToVC : (()->Void) = {}
     
     init() {
@@ -22,7 +23,7 @@ class AllLeaguesViewModel{
     
     
     func getFavouriteLeagues(){
-        leagues = coreDataService?.fetchLeagues() ?? []
+        (leagues, sports) = coreDataService?.fetchLeagues() ?? ([], [])
         bindResultToVC()
     }
     

@@ -14,7 +14,7 @@ class LeagueDetailsViewModel {
     var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "MLS", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
-    var teams: [TeamModelFromEvents] = []
+    var teams: [TeamModel] = []
     var bindResultToVC: (()->()) = {}
     var startIndicator: (()->()) = {}
     var stopIndicator: (()->()) = {}
@@ -91,14 +91,14 @@ class LeagueDetailsViewModel {
     }
     
     func addToFavorites() {
-        coreDataService.addLeague(league: league)
+        coreDataService.addLeague(league: league, sport: sport)
     }
     
     func removeFromFavorites() {
-        coreDataService.deleteLeague(key: league.leagueKey)
+        coreDataService.deleteLeague(key: league.leagueKey, sport: sport)
     }
     
     func checkFavorite() -> Bool {
-        return coreDataService.checkFav(key: league.leagueKey)
+        return coreDataService.checkFav(key: league.leagueKey, sport: sport)
     }
 }

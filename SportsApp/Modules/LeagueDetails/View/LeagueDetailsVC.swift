@@ -134,6 +134,7 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+#warning("move this to viewModel, load data in TeamDetails viewModel")
             if segue.identifier == "TeamDetailsSegue" {
                 if let nextViewController = segue.destination as? TeamDetailsVC {
                     let (sport, teamKey) = sender as! (Sport, Int)
