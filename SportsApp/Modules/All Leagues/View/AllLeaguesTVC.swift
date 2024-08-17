@@ -24,15 +24,7 @@ class AllLeaguesTVC: UITableViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Favourite"
         
-        loadLeaguesTable()
-    }
-    
-    func loadLeaguesTable(){
-        if viewModel.isFavouriteScreen() {
-            viewModel.getFavouriteLeagues()
-        } else {
-            viewModel.getLeaguesFromNetwork()
-        }
+        viewModel.loadLeaguesTable()
     }
 
     // MARK: - Table view data source

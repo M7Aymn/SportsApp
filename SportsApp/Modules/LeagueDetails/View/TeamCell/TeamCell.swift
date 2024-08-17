@@ -15,6 +15,8 @@ class TeamCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layer.cornerRadius = 16
+        self.layer.borderWidth = 0.5
+        self.layer.borderColor = UIColor.systemBrown.cgColor
 //        teamImage.layer.cornerRadius = teamImage.frame.width / 2
     }
     
