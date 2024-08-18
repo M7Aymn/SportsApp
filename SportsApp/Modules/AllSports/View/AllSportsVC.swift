@@ -36,7 +36,7 @@ class AllSportsVC: UIViewController {
             Connectivity.shared.check { [weak self] connected in
                 if connected {
                     let allLeaguesVC = self?.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
-                    allLeaguesVC.title = self?.viewModel.sports[index].title
+                    allLeaguesVC.title = (self?.viewModel.sports[index].title ?? "") + " Leagues"
                     allLeaguesVC.viewModel.isFav = false
                     allLeaguesVC.viewModel.sport = self?.viewModel.sports[index]
                     self?.navigationController?.pushViewController(allLeaguesVC, animated: true)
