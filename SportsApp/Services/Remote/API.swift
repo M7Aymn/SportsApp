@@ -11,9 +11,8 @@ struct API {
     static let baseURL = "https://apiv2.allsportsapi.com"
     static let leagues = "/?met=Leagues"
     static let leagueDetails = "/?met=Fixtures&leagueId="
-    static let apiKey = "&APIkey=f425b6bc70085b127f48d285251e2d85c423aa2f33cee948d703b11432bcebbb"
     static let teamDetails = "/?&met=Teams&teamId="
-
+    static let apiKey = "&APIkey=f425b6bc70085b127f48d285251e2d85c423aa2f33cee948d703b11432bcebbb"
     
     static func getAllLeagueURL(sport: Sport) -> URL? {
         return URL(string: baseURL + sport.endpoint + leagues + apiKey)
@@ -59,7 +58,10 @@ enum DateRange: String {
         switch self {
         case .prevYear:
             let pastYear = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)!
-            return "&from=\(formatter.string(from: pastYear))&to=\(formatter.string(from: currentDate))"
+            //            return "&from=\(formatter.string(from: pastYear))&to=\(formatter.string(from: currentDate))"
+#warning("For testing perpose")
+            let prevDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
+            return "&from=\(formatter.string(from: pastYear))&to=\(formatter.string(from: prevDay))"
         case .nextYear:
             let comingYear = Calendar.current.date(byAdding: .year, value: 1, to: currentDate)!
             return "&from=\(formatter.string(from: currentDate))&to=\(formatter.string(from: comingYear))"

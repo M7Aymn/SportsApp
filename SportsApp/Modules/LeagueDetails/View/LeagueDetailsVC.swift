@@ -9,22 +9,32 @@ import UIKit
 
 class LeagueDetailsVC: UIViewController {
     let viewModel = LeagueDetailsViewModel()
+    let indicator = UIActivityIndicatorView(style: .large)
+    let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: #selector(favButtonPressed))
     var isFav = false {
         didSet {
             button.image = isFav ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
         }
     }
-    let indicator = UIActivityIndicatorView(style: .large)
-    let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: #selector(favButtonPressed))
     
     @IBOutlet weak var leagueCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewModel()
+        setupUI()
+    }
+    
+    func setupUI() {
         title = viewModel.league.leagueName
-        
-        indicator.center = view.center
-        view.addSubview(indicator)
-        
+        setupIndicator()
+        viewModel.getDetails()
+        setupButton()
+        setupCollectionView()
+        setupCollectionViewLayout()
+    }
+    
+    func setupViewModel() {
         viewModel.startIndicator = {
             self.indicator.startAnimating()
         }
@@ -45,19 +55,25 @@ class LeagueDetailsVC: UIViewController {
         viewModel.bindResultToVC = {
             self.leagueCollectionView.reloadData()
         }
-        viewModel.getDetails()
-        
+    }
+    
+    func setupIndicator() {
+        indicator.center = view.center
+        view.addSubview(indicator)
+    }
+    
+    func setupButton() {
         button.target = self
         self.navigationItem.rightBarButtonItem = button
         isFav = viewModel.checkFavorite()
-        
+    }
+    
+    func setupCollectionView() {
         leagueCollectionView.delegate = self
         leagueCollectionView.dataSource = self
         
         leagueCollectionView.register(UINib(nibName: "EventCell", bundle: nil), forCellWithReuseIdentifier: "eventCell")
         leagueCollectionView.register(UINib(nibName: "TeamCell", bundle: nil), forCellWithReuseIdentifier: "teamCell")
-        
-        setupCollectionViewLayout()
     }
     
     @objc func favButtonPressed() {

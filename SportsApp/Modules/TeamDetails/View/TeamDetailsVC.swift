@@ -44,6 +44,11 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
             self.indicator.stopAnimating()
             self.indicator.removeFromSuperview()
         }
+        viewModel.noResultFound = {
+#warning("Add no result photo")
+            self.indicator.stopAnimating()
+            self.indicator.removeFromSuperview()
+        }
     }
     private func configTable(){
         playersTableView.delegate = self

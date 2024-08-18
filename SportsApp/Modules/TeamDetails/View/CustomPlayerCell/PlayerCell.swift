@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+
 class PlayerCell: UITableViewCell {
     @IBOutlet weak var playerImgView: UIImageView!
     @IBOutlet weak var playerNameLabel: UILabel!
@@ -15,19 +16,21 @@ class PlayerCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        setupCellUI()
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    private func setupCellUI() {
         playerImgView.layer.cornerRadius = 16
         view.layer.cornerRadius = 20
         view.layer.borderColor = UIColor.systemBrown.cgColor
         view.layer.borderWidth = 0.3
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
     
-    func setupCell(player: Player){
+    func setupCell(player: Player) {
         playerImgView.kf.setImage(with: URL(string: player.playerImage ?? ""), placeholder: UIImage(named: "soccerPlayer"))
         playerNameLabel.text = player.playerName
         if player.playerNumber == ""{
@@ -35,7 +38,6 @@ class PlayerCell: UITableViewCell {
         }else {
             playerNumberLabel.text = player.playerNumber
         }
-        
     }
 
 }
