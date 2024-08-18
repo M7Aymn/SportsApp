@@ -9,6 +9,7 @@ import UIKit
 
 class AllLeaguesTVC: UITableViewController {
     let viewModel = AllLeaguesViewModel()
+    let indicator = UIActivityIndicatorView(style: .large)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +25,17 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     func setupUI() {
+        indicator.center = view.center
+        view.addSubview(indicator)
+        indicator.startAnimating()
+        
         let nib = UINib(nibName: "LeagueCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "leagueCell")
     }
     
     func setupViewModel() {
         viewModel.bindResultToVC = {
+            self.indicator.stopAnimating()
             self.tableView.reloadData()
         }
     }
@@ -85,6 +91,22 @@ class AllLeaguesTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return viewModel.isFav
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let alert = UIAlertController(title: "Remove favorite", message: "Are you sure you want to remove this league from favorites?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: { UIAlertAction in
+                self.viewModel.removeFromFavorites(index: indexPath.row)
+                self.viewModel.getFavoriteLeagues()
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true)
+        }
     }
     
     private func navigateToSafari(for league: LeagueModel) {

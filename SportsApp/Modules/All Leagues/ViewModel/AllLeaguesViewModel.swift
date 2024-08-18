@@ -22,7 +22,7 @@ class AllLeaguesViewModel{
     }
     
     
-    func getFavouriteLeagues(){
+    func getFavoriteLeagues(){
         (leagues, sports) = coreDataService?.fetchLeagues() ?? ([], [])
         bindResultToVC()
     }
@@ -42,7 +42,7 @@ class AllLeaguesViewModel{
     
     func loadLeaguesTable(){
         if isFav{
-            getFavouriteLeagues()
+            getFavoriteLeagues()
         } else {
             getLeaguesFromNetwork()
         }
@@ -62,4 +62,7 @@ class AllLeaguesViewModel{
         return leagues[index]
     }
     
+    func removeFromFavorites(index: Int) {
+        coreDataService?.deleteLeague(key: leagues[index].leagueKey, sport: sports[index])
+    }
 }
