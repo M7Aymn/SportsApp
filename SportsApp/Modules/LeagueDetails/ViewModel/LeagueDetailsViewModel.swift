@@ -16,14 +16,22 @@ class LeagueDetailsViewModel {
     var latestEvents: [EventModel] = []
     var teams: [TeamModel] = []
     var bindResultToVC: (()->()) = {}
-    var startIndicator: (()->()) = {}
     var stopIndicator: (()->()) = {}
     var noResults: (()->()) = {}
     
     var remainingFailures = 2 {
         didSet {
+            remainingFetches -= 1
             if remainingFailures == 0 {
                 noResults()
+            }
+        }
+    }
+    
+    var remainingFetches = 2 {
+        didSet {
+            if remainingFetches == 0 {
+                stopIndicator()
             }
         }
     }
@@ -39,7 +47,6 @@ class LeagueDetailsViewModel {
     }
     
     private func getUpcomingEvents() {
-        startIndicator()
         let upcomingURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .nextYear)
         nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
@@ -55,13 +62,12 @@ class LeagueDetailsViewModel {
             self?.upcomingEvents = response.result
             DispatchQueue.main.async {
                 self?.bindResultToVC()
-                self?.stopIndicator()
+                self?.remainingFetches -= 1
             }
         }
     }
     
     private func getLatestResults() {
-        startIndicator()
         let latestURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .prevYear)
         nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
@@ -78,7 +84,7 @@ class LeagueDetailsViewModel {
             self?.getTeams()
             DispatchQueue.main.async {
                 self?.bindResultToVC()
-                self?.stopIndicator()
+                self?.remainingFetches -= 1
             }
         }
     }

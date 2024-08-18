@@ -35,10 +35,6 @@ class LeagueDetailsVC: UIViewController {
     }
     
     func setupViewModel() {
-        viewModel.startIndicator = {
-            self.indicator.startAnimating()
-        }
-        
         viewModel.stopIndicator = {
             self.indicator.stopAnimating()
         }
@@ -60,6 +56,7 @@ class LeagueDetailsVC: UIViewController {
     func setupIndicator() {
         indicator.center = view.center
         view.addSubview(indicator)
+        indicator.startAnimating()
     }
     
     func setupButton() {
