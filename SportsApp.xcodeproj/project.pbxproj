@@ -29,6 +29,8 @@
 		C686BC6A2C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C686BC692C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift */; };
 		C686BC6C2C6A7E6B005FCD5B /* LeagueDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C686BC6B2C6A7E6B005FCD5B /* LeagueDetailsVC.swift */; };
 		C6A4B5DC2C6F8C2A0058829B /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A4B5DB2C6F8C2A0058829B /* TeamModel.swift */; };
+		C6A8925F2C727590006F6316 /* NoEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A8925D2C727590006F6316 /* NoEventCell.swift */; };
+		C6A892602C727590006F6316 /* NoEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6A8925E2C727590006F6316 /* NoEventCell.xib */; };
 		C6D2E4A42C6AC018006A4698 /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D2E4A12C6AC018006A4698 /* TeamCell.swift */; };
 		C6D2E4A52C6AC018006A4698 /* TeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D2E4A22C6AC018006A4698 /* TeamCell.xib */; };
 		C6D2E4A72C6AC31A006A4698 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D2E4A62C6AC31A006A4698 /* SectionHeader.swift */; };
@@ -69,6 +71,8 @@
 		C686BC692C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsViewModel.swift; sourceTree = "<group>"; };
 		C686BC6B2C6A7E6B005FCD5B /* LeagueDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueDetailsVC.swift; sourceTree = "<group>"; };
 		C6A4B5DB2C6F8C2A0058829B /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
+		C6A8925D2C727590006F6316 /* NoEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventCell.swift; sourceTree = "<group>"; };
+		C6A8925E2C727590006F6316 /* NoEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoEventCell.xib; sourceTree = "<group>"; };
 		C6D2E4A12C6AC018006A4698 /* TeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
 		C6D2E4A22C6AC018006A4698 /* TeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamCell.xib; sourceTree = "<group>"; };
 		C6D2E4A62C6AC31A006A4698 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -270,6 +274,7 @@
 				C6D2E4A62C6AC31A006A4698 /* SectionHeader.swift */,
 				C686BC642C6A7DD8005FCD5B /* EventCell */,
 				C6D2E4A32C6AC018006A4698 /* TeamCell */,
+				C6A8925C2C72754F006F6316 /* NoEventCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -280,6 +285,15 @@
 				C686BC692C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C6A8925C2C72754F006F6316 /* NoEventCell */ = {
+			isa = PBXGroup;
+			children = (
+				C6A8925D2C727590006F6316 /* NoEventCell.swift */,
+				C6A8925E2C727590006F6316 /* NoEventCell.xib */,
+			);
+			path = NoEventCell;
 			sourceTree = "<group>";
 		};
 		C6D2E4A32C6AC018006A4698 /* TeamCell */ = {
@@ -425,6 +439,7 @@
 				C686BC402C6A648B005FCD5B /* Base in Resources */,
 				C6D2E4A52C6AC018006A4698 /* TeamCell.xib in Resources */,
 				C686BC602C6A6B75005FCD5B /* SportCell.xib in Resources */,
+				C6A892602C727590006F6316 /* NoEventCell.xib in Resources */,
 				E267DA752C70A6CC0023CF31 /* PlayerCell.xib in Resources */,
 				C686BC382C6A6489005FCD5B /* Base in Resources */,
 				C686BC662C6A7DD8005FCD5B /* EventCell.xib in Resources */,
@@ -503,6 +518,7 @@
 				C6D2E4A72C6AC31A006A4698 /* SectionHeader.swift in Sources */,
 				C686BC332C6A6489005FCD5B /* SceneDelegate.swift in Sources */,
 				C686BC5F2C6A6B75005FCD5B /* SportCell.swift in Sources */,
+				C6A8925F2C727590006F6316 /* NoEventCell.swift in Sources */,
 				E2B4C2322C6A771600F4ECC4 /* LeagueCell.swift in Sources */,
 				C686BC572C6A64D1005FCD5B /* NWService.swift in Sources */,
 			);

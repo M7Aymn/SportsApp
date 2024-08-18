@@ -39,15 +39,6 @@ class LeagueDetailsVC: UIViewController {
             self.indicator.stopAnimating()
         }
         
-        viewModel.noResults = {
-            self.indicator.stopAnimating()
-            self.leagueCollectionView.isHidden = true
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-            imageView.center = self.view.center
-            imageView.image = UIImage(named: "noResults")
-            self.view.addSubview(imageView)
-        }
-        
         viewModel.bindResultToVC = {
             self.leagueCollectionView.reloadData()
         }
@@ -71,6 +62,7 @@ class LeagueDetailsVC: UIViewController {
         
         leagueCollectionView.register(UINib(nibName: "EventCell", bundle: nil), forCellWithReuseIdentifier: "eventCell")
         leagueCollectionView.register(UINib(nibName: "TeamCell", bundle: nil), forCellWithReuseIdentifier: "teamCell")
+        leagueCollectionView.register(UINib(nibName: "NoEventCell", bundle: nil), forCellWithReuseIdentifier: "noEventCell")
     }
     
     @objc func favButtonPressed() {
@@ -101,9 +93,9 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return viewModel.upcomingEvents.count
+            return viewModel.upcomingEvents.isEmpty ? viewModel.doneRequests[0] : viewModel.upcomingEvents.count
         case 1:
-            return viewModel.latestEvents.count
+            return viewModel.latestEvents.isEmpty ? viewModel.doneRequests[1] : viewModel.latestEvents.count
         case 2:
             return viewModel.teams.count
         default:
@@ -112,22 +104,21 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
-            cell.setupCell(event: viewModel.upcomingEvents[indexPath.row])
-            return cell
-        case 1:
-            let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath) as! EventCell
-            cell.setupCell(event: viewModel.latestEvents[indexPath.row])
-            return cell
-        case 2:
-            let cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath) as! TeamCell
-            cell.setupCell(team: viewModel.teams[indexPath.row])
-            return cell
-        default:
-            return UICollectionViewCell()
+        let cell: UICollectionViewCell
+        let events = [viewModel.upcomingEvents, viewModel.latestEvents]
+        if indexPath.section < 2 && events[indexPath.section].isEmpty {
+            cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "noEventCell", for: indexPath)
+        } else {
+            switch indexPath.section {
+            case 2:
+                cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
+                (cell as! TeamCell).setupCell(team: viewModel.teams[indexPath.row])
+            default:
+                cell = leagueCollectionView.dequeueReusableCell(withReuseIdentifier: "eventCell", for: indexPath)
+                (cell as! EventCell).setupCell(event: events[indexPath.section][indexPath.row])
+            }
         }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -167,10 +158,8 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
                 return self.upcomingSection()
             case 1 :
                 return self.latestSection()
-            case 2:
-                return self.teamsSection()
             default:
-                return self.upcomingSection()
+                return self.teamsSection()
             }
         }
         leagueCollectionView.setCollectionViewLayout(layout, animated: true)
@@ -188,22 +177,10 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         section.orthogonalScrollingBehavior = .groupPagingCentered
         
-        if viewModel.upcomingEvents.count != 0 {
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [header]
-        }
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [header]
         
-        
-        //        section.visibleItemsInvalidationHandler = { (items, offset, environment) in
-        //            items.forEach { item in
-        //                let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
-        //                let minScale: CGFloat = 0.8
-        //                let maxScale: CGFloat = 1.0
-        //                let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
-        //                item.transform = CGAffineTransform(scaleX: scale, y: scale)
-        //            }
-        //        }
         return section
     }
     
@@ -218,11 +195,9 @@ extension LeagueDetailsVC: UICollectionViewDelegateFlowLayout {
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
         
-        if viewModel.latestEvents.count != 0 {
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
-            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [header]
-        }
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        section.boundarySupplementaryItems = [header]
         
         return section
     }
