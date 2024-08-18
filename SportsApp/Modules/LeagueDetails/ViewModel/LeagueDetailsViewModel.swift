@@ -17,20 +17,11 @@ class LeagueDetailsViewModel {
     var teams: [TeamModel] = []
     var bindResultToVC: (()->()) = {}
     var stopIndicator: (()->()) = {}
-    var noResults: (()->()) = {}
     
-    var remainingFailures = 2 {
+    var doneRequests = [0, 0] {
         didSet {
-            remainingFetches -= 1
-            if remainingFailures == 0 {
-                noResults()
-            }
-        }
-    }
-    
-    var remainingFetches = 2 {
-        didSet {
-            if remainingFetches == 0 {
+            bindResultToVC()
+            if doneRequests.reduce(0, +) == 2 {
                 stopIndicator()
             }
         }
@@ -51,18 +42,18 @@ class LeagueDetailsViewModel {
         nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
-                self?.remainingFailures -= 1
+                self?.doneRequests[0] = 1
                 return
             }
             guard let response = response else {
                 print("No data in response")
-                self?.remainingFailures -= 1
+                self?.doneRequests[0] = 1
                 return
             }
             self?.upcomingEvents = response.result
             DispatchQueue.main.async {
-                self?.bindResultToVC()
-                self?.remainingFetches -= 1
+//                self?.bindResultToVC()
+                self?.doneRequests[0] = 1
             }
         }
     }
@@ -72,19 +63,19 @@ class LeagueDetailsViewModel {
         nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
-                self?.remainingFailures -= 1
+                self?.doneRequests[1] = 1
                 return
             }
             guard let response = response else {
                 print("No data in response")
-                self?.remainingFailures -= 1
+                self?.doneRequests[1] = 1
                 return
             }
             self?.latestEvents = response.result
             self?.getTeams()
             DispatchQueue.main.async {
-                self?.bindResultToVC()
-                self?.remainingFetches -= 1
+//                self?.bindResultToVC()
+                self?.doneRequests[1] = 1
             }
         }
     }
