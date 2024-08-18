@@ -13,12 +13,16 @@ class SportCell: UICollectionViewCell {
     @IBOutlet weak var sportImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupCellUI()
+    }
+    
+    private func setupCellUI() {
         sportImage.layer.cornerRadius = 16
         sportImage.layer.borderWidth = 2.5
         sportImage.layer.borderColor = UIColor.systemBrown.cgColor
     }
     
-    func setupSport(title: String, image: UIImage?) {
+    func setupCell(title: String, image: UIImage?) {
         sportLabel.text = title
         sportImage.image = image ?? UIImage(systemName: "sportscourt.circle.fill")
     }

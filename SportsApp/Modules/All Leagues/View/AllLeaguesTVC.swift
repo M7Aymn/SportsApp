@@ -8,23 +8,30 @@
 import UIKit
 
 class AllLeaguesTVC: UITableViewController {
-    
-    var viewModel = AllLeaguesViewModel()
+    let viewModel = AllLeaguesViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        setupViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Favorite"
+        
+        viewModel.loadLeaguesTable()
+    }
+    
+    func setupUI() {
         let nib = UINib(nibName: "LeagueCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "leagueCell")
-        
+    }
+    
+    func setupViewModel() {
         viewModel.bindResultToVC = {
             self.tableView.reloadData()
         }
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.title = "Favourite"
-        
-        viewModel.loadLeaguesTable()
     }
 
     // MARK: - Table view data source
@@ -34,7 +41,7 @@ class AllLeaguesTVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getNumberOfleagues()
+        return viewModel.getNumberOfLeagues()
     }
 
     
@@ -49,20 +56,29 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
+//        if viewModel.isFav {
+        Connectivity.shared.check { [weak self] connected in
+            if connected {
+                self?.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
+            } else {
+                let alert = UIAlertController(title: "No Connection", message: "Make sure you are connected to WiFi or cellular and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                self?.present(alert, animated: true)
+            }
+        }
+//        } else {
+//            self.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
+//        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "leagueDetailsSegue" {
-                if let nextViewController = segue.destination as? LeagueDetailsVC {
+                if let nextVC = segue.destination as? LeagueDetailsVC {
                     let index = sender as! Int
-#warning("move this function to viewModel and give it only indexPath.row")
-                    if viewModel.isFav {
-                        nextViewController.viewModel.sport = viewModel.sports[index]
-                    } else {
-                        nextViewController.viewModel.sport = viewModel.sport ?? .football
-                    }
-                    nextViewController.viewModel.league = viewModel.leagues[index]
+                    let sport = (viewModel.isFav) ? (viewModel.sports[index]) : (viewModel.sport ?? .football)
+                    nextVC.viewModel.sport = sport
+                    nextVC.viewModel.league = viewModel.leagues[index]
                 }
             }
         }

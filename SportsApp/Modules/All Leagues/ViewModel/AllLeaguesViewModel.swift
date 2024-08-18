@@ -54,7 +54,7 @@ class AllLeaguesViewModel{
         return URL(string: youtubeUrlString)
     }
     
-    func getNumberOfleagues()->Int{
+    func getNumberOfLeagues()->Int{
         return leagues.count
     }
     

@@ -22,6 +22,10 @@ class EventCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupCellUI()
+    }
+    
+    private func setupCellUI() {
         self.layer.cornerRadius = 16
 //        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
 //        leagueBackgroundView.layer.borderWidth = 2.0
@@ -33,7 +37,6 @@ class EventCell: UICollectionViewCell {
 //        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
 //        leagueBackgroundView.alpha = 0.66
         leagueBackgroundView.isHidden = true
-
     }
     
     func setupCell(event: EventModel) {

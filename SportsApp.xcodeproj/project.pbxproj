@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BEC7695B8497A9C9B1091C7 /* Pods_SportsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E9474EC1E112B1D8F3BD7A1 /* Pods_SportsApp.framework */; };
+		C64CEB262C7200050047EEE4 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64CEB252C7200050047EEE4 /* Connectivity.swift */; };
 		C663FBA92C6B475E00FB1372 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663FBA82C6B475E00FB1372 /* EventModel.swift */; };
 		C663FBAB2C6B47FD00FB1372 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C663FBAA2C6B47FD00FB1372 /* API.swift */; };
 		C686BC312C6A6489005FCD5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C686BC302C6A6489005FCD5B /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		517D82B83B93BA60FFD45973 /* Pods-SportsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.debug.xcconfig"; path = "Target Support Files/Pods-SportsApp/Pods-SportsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		966A3647C64E81F4DA78C469 /* Pods-SportsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsApp.release.xcconfig"; path = "Target Support Files/Pods-SportsApp/Pods-SportsApp.release.xcconfig"; sourceTree = "<group>"; };
 		9E9474EC1E112B1D8F3BD7A1 /* Pods_SportsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C64CEB252C7200050047EEE4 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		C663FBA82C6B475E00FB1372 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		C663FBAA2C6B47FD00FB1372 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C686BC2D2C6A6489005FCD5B /* SportsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 			children = (
 				C663FBAA2C6B47FD00FB1372 /* API.swift */,
 				C686BC4B2C6A64D1005FCD5B /* NWService.swift */,
+				C64CEB252C7200050047EEE4 /* Connectivity.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
@@ -216,10 +219,10 @@
 		C686BC552C6A64D1005FCD5B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E267988B2C6FD1FF004690F8 /* TeamDetails */,
 				C686BC542C6A64D1005FCD5B /* AllSports */,
 				E2B4C2232C6A75C800F4ECC4 /* All Leagues */,
 				C686BC612C6A7DAE005FCD5B /* LeagueDetails */,
+				E267988B2C6FD1FF004690F8 /* TeamDetails */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -291,8 +294,8 @@
 		E267988B2C6FD1FF004690F8 /* TeamDetails */ = {
 			isa = PBXGroup;
 			children = (
-				E267988D2C6FD20E004690F8 /* ViewModels */,
 				E267988C2C6FD209004690F8 /* View */,
+				E267988D2C6FD20E004690F8 /* ViewModels */,
 			);
 			path = TeamDetails;
 			sourceTree = "<group>";
@@ -317,8 +320,8 @@
 		E267DA762C70A8270023CF31 /* CustomPlayerCell */ = {
 			isa = PBXGroup;
 			children = (
-				E267DA732C70A6CC0023CF31 /* PlayerCell.xib */,
 				E267DA772C70A89F0023CF31 /* PlayerCell.swift */,
+				E267DA732C70A6CC0023CF31 /* PlayerCell.xib */,
 			);
 			path = CustomPlayerCell;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				C686BC582C6A64D1005FCD5B /* LeagueModel.swift in Sources */,
 				C686BC562C6A64D1005FCD5B /* CoreDataService.swift in Sources */,
 				C686BC6A2C6A7DF8005FCD5B /* LeagueDetailsViewModel.swift in Sources */,
+				C64CEB262C7200050047EEE4 /* Connectivity.swift in Sources */,
 				E2B4C2272C6A760600F4ECC4 /* AllLeaguesTVC.swift in Sources */,
 				C686BC312C6A6489005FCD5B /* AppDelegate.swift in Sources */,
 				E2B4C2292C6A763B00F4ECC4 /* AllLeaguesViewModel.swift in Sources */,

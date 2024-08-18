@@ -20,6 +20,7 @@ class TeamDetailsViewModel{
     }
     var players : [Player] = []
     var bindResultToViewController : (()->Void) = {}
+    var noResultFound : (()->Void) = {}
     
     init(){
         nwService = NWService()
@@ -30,10 +31,14 @@ class TeamDetailsViewModel{
         guard let teamID = teamID else {return}
         guard let url = API.getTeamDetailsURL(sport: sport, TeamID: teamID) else {return}
         nwService.fetchData(url: url, model: TeamModelAPIResponse.self) { result, error in
+            if error != nil {
+                self.noResultFound()
+            }
             if let result = result{
                 self.team = result.result
             } else {
                 print(error!)
+                self.noResultFound()
             }
             
         }

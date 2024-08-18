@@ -13,7 +13,8 @@ class AllSportsVC: UIViewController {
     @IBOutlet weak var sportsCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVC()
+        setupUI()
+        setupViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,27 +22,36 @@ class AllSportsVC: UIViewController {
         self.tabBarController?.navigationItem.title = "Sports"
     }
     
-    func setupVC() {
+    func setupUI() {
         sportsCollectionView.delegate = self
         sportsCollectionView.dataSource = self
         
         sportsCollectionView.register(UINib(nibName: "SportCell", bundle: nil), forCellWithReuseIdentifier: "SportCell")
         
-        viewModel.navigateToAllLeaguesTVC = { index in
-            let allLeaguesVC = self.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
-            allLeaguesVC.title = self.viewModel.sports[index].title
-            allLeaguesVC.viewModel.isFav = false
-            allLeaguesVC.viewModel.sport = self.viewModel.sports[index]
-            self.navigationController?.pushViewController(allLeaguesVC, animated: true)
-        }
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange),name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
+    func setupViewModel() {
+        viewModel.navigateToAllLeaguesTVC = { index in
+            Connectivity.shared.check { [weak self] connected in
+                if connected {
+                    let allLeaguesVC = self?.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
+                    allLeaguesVC.title = self?.viewModel.sports[index].title
+                    allLeaguesVC.viewModel.isFav = false
+                    allLeaguesVC.viewModel.sport = self?.viewModel.sports[index]
+                    self?.navigationController?.pushViewController(allLeaguesVC, animated: true)
+                } else {
+                    let alert = UIAlertController(title: "No Connection", message: "Make sure you are connected to WiFi or cellular and try again.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .default))
+                    self?.present(alert, animated: true)
+                }
+            }
+        }
+    }
     
     @objc func orientationDidChange() {
         sportsCollectionView.reloadData()
     }
-    
 }
 
 extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -51,7 +61,7 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportCell", for: indexPath) as! SportCell
-        cell.setupSport(title: viewModel.sports[indexPath.row].title, image: UIImage(named: viewModel.sports[indexPath.row].imageName))
+        cell.setupCell(title: viewModel.sports[indexPath.row].title, image: UIImage(named: viewModel.sports[indexPath.row].imageName))
         return cell
     }
     

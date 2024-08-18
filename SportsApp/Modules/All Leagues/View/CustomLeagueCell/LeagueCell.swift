@@ -17,15 +17,19 @@ class LeagueCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupCellUI()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    private func setupCellUI() {
         leagueImage.layer.cornerRadius = 16
         contentView.backgroundColor = UIColor.secondarySystemFill
         contentView.layer.borderColor = UIColor.systemBrown.cgColor
         contentView.layer.borderWidth = 1.0
         contentView.layer.masksToBounds = true
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     func setupCell(league: LeagueModel) {
