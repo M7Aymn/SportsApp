@@ -10,6 +10,7 @@ import UIKit
 class AllLeaguesTVC: UITableViewController {
     let viewModel = AllLeaguesViewModel()
     let indicator = UIActivityIndicatorView(style: .large)
+    let noFavoriteImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,14 @@ class AllLeaguesTVC: UITableViewController {
         view.addSubview(indicator)
         indicator.startAnimating()
         
+        noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
+        noFavoriteImageView.image = UIImage(named: "noFavorites")
+        noFavoriteImageView.contentMode = .scaleAspectFit
+        noFavoriteImageView.layer.cornerRadius = 150
+        noFavoriteImageView.layer.masksToBounds = true
+        view.addSubview(noFavoriteImageView)
+        noFavoriteImageView.isHidden = true
+        
         let nib = UINib(nibName: "LeagueCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "leagueCell")
     }
@@ -37,6 +46,11 @@ class AllLeaguesTVC: UITableViewController {
         viewModel.bindResultToVC = {
             self.indicator.stopAnimating()
             self.tableView.reloadData()
+        }
+        
+        viewModel.showNoFavoriteImage = { showImage in
+            self.tableView.isScrollEnabled = !showImage
+            self.noFavoriteImageView.isHidden = !showImage
         }
     }
 
