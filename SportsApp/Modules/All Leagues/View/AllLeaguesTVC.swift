@@ -8,10 +8,14 @@
 import UIKit
 
 class AllLeaguesTVC: UITableViewController {
-    let viewModel = AllLeaguesViewModel()
+    let viewModel : AllLeaguesViewModel!
     let indicator = UIActivityIndicatorView(style: .large)
     let noFavoriteImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = AllLeaguesViewModel()
+        super.init(coder: coder)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -21,23 +25,12 @@ class AllLeaguesTVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.navigationItem.title = "Favorite"
-        
         viewModel.loadLeaguesTable()
     }
     
     func setupUI() {
-        indicator.center = view.center
-        view.addSubview(indicator)
-        indicator.startAnimating()
-        
-        noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
-        noFavoriteImageView.image = UIImage(named: "noFavorites")
-        noFavoriteImageView.contentMode = .scaleAspectFit
-        noFavoriteImageView.layer.cornerRadius = 150
-        noFavoriteImageView.layer.masksToBounds = true
-        view.addSubview(noFavoriteImageView)
-        noFavoriteImageView.isHidden = true
-        
+        setupIndicator()
+        setupNoFavoriteImage()
         let nib = UINib(nibName: "LeagueCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "leagueCell")
     }
@@ -52,6 +45,22 @@ class AllLeaguesTVC: UITableViewController {
             self.tableView.isScrollEnabled = !showImage
             self.noFavoriteImageView.isHidden = !showImage
         }
+    }
+    
+    private func setupIndicator(){
+        indicator.center = view.center
+        view.addSubview(indicator)
+        indicator.startAnimating()
+    }
+    
+    private func setupNoFavoriteImage(){
+        noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
+        noFavoriteImageView.image = UIImage(named: "noFavorites")
+        noFavoriteImageView.contentMode = .scaleAspectFit
+        noFavoriteImageView.layer.cornerRadius = 150
+        noFavoriteImageView.layer.masksToBounds = true
+        view.addSubview(noFavoriteImageView)
+        noFavoriteImageView.isHidden = true
     }
 
     // MARK: - Table view data source
@@ -75,8 +84,14 @@ class AllLeaguesTVC: UITableViewController {
         return cell
     }
     
+    private func navigateToSafari(for league: LeagueModel) {
+        if let url = self.viewModel.getYouTubeChannelURL(for: league){
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if viewModel.isFav {
+
         Connectivity.shared.check { [weak self] connected in
             if connected {
                 self?.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
@@ -86,10 +101,6 @@ class AllLeaguesTVC: UITableViewController {
                 self?.present(alert, animated: true)
             }
         }
-//        } else {
-//            self.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
-//        }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -98,7 +109,7 @@ class AllLeaguesTVC: UITableViewController {
                     let index = sender as! Int
                     let sport = (viewModel.isFav) ? (viewModel.sports[index]) : (viewModel.sport ?? .football)
                     nextVC.viewModel.sport = sport
-                    nextVC.viewModel.league = viewModel.leagues[index]
+                    nextVC.viewModel.league = viewModel.getLeague(index: index)
                 }
             }
         }
@@ -122,11 +133,4 @@ class AllLeaguesTVC: UITableViewController {
             self.present(alert, animated: true)
         }
     }
-    
-    private func navigateToSafari(for league: LeagueModel) {
-        if let url = self.viewModel.getYouTubeChannelURL(for: league){
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-
 }

@@ -36,6 +36,9 @@ class TeamDetailsViewModel{
             }
             if let result = result{
                 self.team = result.result
+                if self.team[0].players == nil || self.team[0].players!.isEmpty {
+                    self.noResultFound()
+                }
             } else {
                 print(error!)
                 self.noResultFound()

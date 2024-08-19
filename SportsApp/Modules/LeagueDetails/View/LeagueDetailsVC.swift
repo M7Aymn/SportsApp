@@ -8,7 +8,7 @@
 import UIKit
 
 class LeagueDetailsVC: UIViewController {
-    let viewModel = LeagueDetailsViewModel()
+    let viewModel : LeagueDetailsViewModel!
     let indicator = UIActivityIndicatorView(style: .large)
     let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .plain, target: nil, action: #selector(favButtonPressed))
     var isFav = false {
@@ -18,6 +18,11 @@ class LeagueDetailsVC: UIViewController {
     }
     
     @IBOutlet weak var leagueCollectionView: UICollectionView!
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = LeagueDetailsViewModel()
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +143,6 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-#warning("move this to viewModel, load data in TeamDetails viewModel")
             if segue.identifier == "TeamDetailsSegue" {
                 if let nextViewController = segue.destination as? TeamDetailsVC {
                     let (sport, teamKey) = sender as! (Sport, Int)

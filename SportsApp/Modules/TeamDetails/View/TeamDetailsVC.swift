@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
+    @IBOutlet weak var noResultImgView: UIImageView!
     
     @IBOutlet weak var imgViewBG: UIImageView!
     @IBOutlet weak var logoImgView: UIImageView!
@@ -15,7 +16,12 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
     @IBOutlet weak var coachNameLabel: UILabel!
     @IBOutlet weak var playersTableView: UITableView!
     let indicator = UIActivityIndicatorView(style: .large)
-    var viewModel = TeamDetailsViewModel()
+    var viewModel : TeamDetailsViewModel!
+    
+    required init?(coder: NSCoder) {
+        self.viewModel = TeamDetailsViewModel()
+        super.init(coder: coder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,9 +51,9 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
             self.indicator.removeFromSuperview()
         }
         viewModel.noResultFound = {
-#warning("Add no result photo")
             self.indicator.stopAnimating()
             self.indicator.removeFromSuperview()
+            self.noResultImgView.isHidden = false
         }
     }
     private func configTable(){

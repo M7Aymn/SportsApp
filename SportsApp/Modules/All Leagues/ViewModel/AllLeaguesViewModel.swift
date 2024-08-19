@@ -40,8 +40,6 @@ class AllLeaguesViewModel{
                 self.leagues = result.result
                 self.bindResultToVC()
             } else {
-#warning("when api was down this scope triggered")
-#warning("try to stop indicator and add some photo")
                 print(error!.localizedDescription)
             }
         })

@@ -8,7 +8,11 @@
 import UIKit
 
 class AllSportsVC: UIViewController {
-    let viewModel = AllSportsViewModel()
+    let viewModel : AllSportsViewModel!
+    required init?(coder: NSCoder) {
+        self.viewModel = AllSportsViewModel()
+        super.init(coder: coder)
+    }
     
     @IBOutlet weak var sportsCollectionView: UICollectionView!
     override func viewDidLoad() {
@@ -73,7 +77,6 @@ extension AllSportsVC: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension AllSportsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: UIScreen.main.bounds.width/2 - 15, height: UIScreen.main.bounds.width/2 - 15)
         let safeAreaInsets = view.safeAreaInsets
         let safeAreaWidth = view.bounds.width - safeAreaInsets.left - safeAreaInsets.right
         let size = CGSize(width: safeAreaWidth/2 - 15, height: safeAreaWidth/2 - 15)
