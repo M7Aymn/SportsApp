@@ -13,8 +13,13 @@ class AllLeaguesViewModel{
     var coreDataService: CoreDataServiceProtocol?
     var sport : Sport?
     var leagues : [LeagueModel] = []
-    var sports : [Sport] = []
+    var sports : [Sport] = [] {
+        didSet {
+            showNoFavoriteImage(sports.isEmpty)
+        }
+    }
     var bindResultToVC : (()->Void) = {}
+    var showNoFavoriteImage : ((Bool)->Void) = {_ in}
     
     init() {
         self.nwService = NWService()
@@ -35,6 +40,8 @@ class AllLeaguesViewModel{
                 self.leagues = result.result
                 self.bindResultToVC()
             } else {
+#warning("when api was down this scope triggered")
+#warning("try to stop indicator and add some photo")
                 print(error!.localizedDescription)
             }
         })
