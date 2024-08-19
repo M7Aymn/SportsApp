@@ -70,7 +70,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8bQ-N1-0QL" secondAttribute="bottom" id="sd9-Ai-E4B"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Sports" image="sportscourt.fill" catalog="system" id="Ji1-3Y-Ghy"/>
+                    <tabBarItem key="tabBarItem" title="Sports" image="figure.run" catalog="system" id="Ji1-3Y-Ghy"/>
                     <connections>
                         <outlet property="sportsCollectionView" destination="8bQ-N1-0QL" id="bUC-hS-k0a"/>
                     </connections>
@@ -277,6 +277,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="figure.run" catalog="system" width="115" height="128"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
         <image name="noResults" width="512" height="512"/>
         <image name="sportscourt.fill" catalog="system" width="128" height="83"/>

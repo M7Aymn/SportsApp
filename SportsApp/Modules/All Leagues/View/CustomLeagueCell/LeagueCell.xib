@@ -12,49 +12,61 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leagueCell" rowHeight="96" id="KGk-i7-Jjw" customClass="LeagueCell" customModule="SportsApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leagueCell" rowHeight="137" id="KGk-i7-Jjw" customClass="LeagueCell" customModule="SportsApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="351" height="137"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
+                <rect key="frame" x="0.0" y="0.0" width="351" height="137"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rjs-8M-99y">
-                        <rect key="frame" x="16" y="23" width="50" height="50"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTP-od-vZQ">
+                        <rect key="frame" x="10" y="5" width="331" height="127"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rjs-8M-99y">
+                                <rect key="frame" x="10" y="38.666666666666664" width="50" height="49.999999999999993"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="QHG-LA-AlF"/>
+                                    <constraint firstAttribute="width" constant="50" id="TKb-cm-ZG1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMj-d9-kr5">
+                                <rect key="frame" x="76" y="0.0" width="188" height="127"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-qT-kqi">
+                                <rect key="frame" x="276.33333333333331" y="46.333333333333329" width="54.666666666666686" height="34.333333333333329"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="play.rectangle.fill" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="play.rectangle.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="youtubeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PB8-Kw-WgU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="QHG-LA-AlF"/>
-                            <constraint firstAttribute="width" constant="50" id="TKb-cm-ZG1"/>
+                            <constraint firstItem="Rjs-8M-99y" firstAttribute="centerY" secondItem="YTP-od-vZQ" secondAttribute="centerY" id="2r9-CP-aUr"/>
+                            <constraint firstItem="uMj-d9-kr5" firstAttribute="top" secondItem="YTP-od-vZQ" secondAttribute="top" id="Ike-my-gqa"/>
+                            <constraint firstAttribute="trailing" secondItem="uMj-d9-kr5" secondAttribute="trailing" constant="67" id="JLe-dO-r9G"/>
+                            <constraint firstItem="Rjs-8M-99y" firstAttribute="leading" secondItem="YTP-od-vZQ" secondAttribute="leading" constant="10" id="Q3j-mC-wob"/>
+                            <constraint firstAttribute="bottom" secondItem="uMj-d9-kr5" secondAttribute="bottom" id="Wch-2x-xR8"/>
+                            <constraint firstItem="uMj-d9-kr5" firstAttribute="leading" secondItem="Rjs-8M-99y" secondAttribute="trailing" constant="16" id="bCf-3g-sF3"/>
+                            <constraint firstAttribute="trailing" secondItem="PGc-qT-kqi" secondAttribute="trailing" id="pn7-dn-RiO"/>
+                            <constraint firstItem="PGc-qT-kqi" firstAttribute="centerY" secondItem="YTP-od-vZQ" secondAttribute="centerY" id="uaG-aI-OLA"/>
                         </constraints>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMj-d9-kr5">
-                        <rect key="frame" x="82" y="16" width="171" height="64"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-qT-kqi">
-                        <rect key="frame" x="265.33333333333331" y="31.000000000000004" width="54.666666666666686" height="34.333333333333343"/>
-                        <color key="tintColor" systemColor="systemRedColor"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" image="play.rectangle.fill" catalog="system"/>
-                        <buttonConfiguration key="configuration" style="plain">
-                            <imageReference key="image" image="play.rectangle.fill" catalog="system" symbolScale="large"/>
-                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
-                        </buttonConfiguration>
-                        <connections>
-                            <action selector="youtubeButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PB8-Kw-WgU"/>
-                        </connections>
-                    </button>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Rjs-8M-99y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Gpd-Hv-iAR"/>
-                    <constraint firstAttribute="trailing" secondItem="PGc-qT-kqi" secondAttribute="trailing" id="YhD-w3-nhp"/>
-                    <constraint firstItem="Rjs-8M-99y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="cgU-Nl-9Vd"/>
-                    <constraint firstItem="uMj-d9-kr5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="d8Y-64-Hb0"/>
-                    <constraint firstAttribute="bottom" secondItem="uMj-d9-kr5" secondAttribute="bottom" constant="16" id="f8i-bc-X16"/>
-                    <constraint firstAttribute="trailing" secondItem="uMj-d9-kr5" secondAttribute="trailing" constant="67" id="jmU-kx-ghv"/>
-                    <constraint firstItem="PGc-qT-kqi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="lwx-4g-NX4"/>
-                    <constraint firstItem="uMj-d9-kr5" firstAttribute="leading" secondItem="Rjs-8M-99y" secondAttribute="trailing" constant="16" id="yt4-IV-Px7"/>
+                    <constraint firstItem="YTP-od-vZQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="4e5-Op-HUX"/>
+                    <constraint firstAttribute="bottom" secondItem="YTP-od-vZQ" secondAttribute="bottom" constant="5" id="MjF-Rd-UdA"/>
+                    <constraint firstItem="YTP-od-vZQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="RFa-7B-Lpd"/>
+                    <constraint firstAttribute="trailing" secondItem="YTP-od-vZQ" secondAttribute="trailing" constant="10" id="vxD-iv-0id"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -62,12 +74,16 @@
                 <outlet property="button" destination="PGc-qT-kqi" id="YzP-ua-Vi9"/>
                 <outlet property="leagueImage" destination="Rjs-8M-99y" id="Yd7-51-BZA"/>
                 <outlet property="leagueName" destination="uMj-d9-kr5" id="x7u-P2-cma"/>
+                <outlet property="view" destination="YTP-od-vZQ" id="Rv2-XT-e0N"/>
             </connections>
-            <point key="canvasLocation" x="129.7709923664122" y="-30.985915492957748"/>
+            <point key="canvasLocation" x="153.43511450381678" y="-16.549295774647888"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="play.rectangle.fill" catalog="system" width="128" height="93"/>
+        <systemColor name="secondarySystemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
