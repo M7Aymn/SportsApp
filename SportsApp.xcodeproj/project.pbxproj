@@ -45,6 +45,8 @@
 		E2B4C2292C6A763B00F4ECC4 /* AllLeaguesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C2282C6A763B00F4ECC4 /* AllLeaguesViewModel.swift */; };
 		E2B4C2312C6A771600F4ECC4 /* LeagueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E2B4C22F2C6A771500F4ECC4 /* LeagueCell.xib */; };
 		E2B4C2322C6A771600F4ECC4 /* LeagueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B4C2302C6A771500F4ECC4 /* LeagueCell.swift */; };
+		E2CE83D22C73843D0010B103 /* AllLeaguesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CE83D12C73843D0010B103 /* AllLeaguesViewModelTests.swift */; };
+		E2CE83D42C7385660010B103 /* TeamDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CE83D32C7385660010B103 /* TeamDetailsViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,8 @@
 		E2B4C2282C6A763B00F4ECC4 /* AllLeaguesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLeaguesViewModel.swift; sourceTree = "<group>"; };
 		E2B4C22F2C6A771500F4ECC4 /* LeagueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueCell.xib; sourceTree = "<group>"; };
 		E2B4C2302C6A771500F4ECC4 /* LeagueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeagueCell.swift; sourceTree = "<group>"; };
+		E2CE83D12C73843D0010B103 /* AllLeaguesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllLeaguesViewModelTests.swift; sourceTree = "<group>"; };
+		E2CE83D32C7385660010B103 /* TeamDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 				C67AF0762C72D98B00A032B4 /* NWServiceTests.swift */,
 				C67AF0782C72D9CB00A032B4 /* ConnectivityTests.swift */,
 				C67AF07A2C72D9ED00A032B4 /* CoreDataServiceTests.swift */,
+				E2CE83D12C73843D0010B103 /* AllLeaguesViewModelTests.swift */,
+				E2CE83D32C7385660010B103 /* TeamDetailsViewModelTests.swift */,
 			);
 			path = SportsAppTests;
 			sourceTree = "<group>";
@@ -564,8 +570,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C67AF07B2C72D9ED00A032B4 /* CoreDataServiceTests.swift in Sources */,
+				E2CE83D42C7385660010B103 /* TeamDetailsViewModelTests.swift in Sources */,
 				C67AF0792C72D9CB00A032B4 /* ConnectivityTests.swift in Sources */,
 				C67AF0772C72D98B00A032B4 /* NWServiceTests.swift in Sources */,
+				E2CE83D22C73843D0010B103 /* AllLeaguesViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +648,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.m7aymn.SportsAppTests;
@@ -664,7 +672,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.m7aymn.SportsAppTests;
