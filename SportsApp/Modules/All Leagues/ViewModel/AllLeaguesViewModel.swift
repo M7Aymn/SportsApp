@@ -26,7 +26,6 @@ class AllLeaguesViewModel{
         self.coreDataService = CoreDataService.shared
     }
     
-    
     func getFavoriteLeagues(){
         (leagues, sports) = coreDataService?.fetchLeagues() ?? ([], [])
         bindResultToVC()

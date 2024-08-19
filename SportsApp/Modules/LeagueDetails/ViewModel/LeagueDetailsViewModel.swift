@@ -11,7 +11,7 @@ class LeagueDetailsViewModel {
     var nwService: NWServiceProtocol
     var coreDataService: CoreDataServiceProtocol
     var sport: Sport = .football
-    var league: LeagueModel = LeagueModel(leagueKey: 332, leagueName: "MLS", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
+    var league: LeagueModel
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
     var teams: [TeamModel] = []
@@ -26,10 +26,11 @@ class LeagueDetailsViewModel {
             }
         }
     }
-
+    
     init() {
         nwService = NWService()
         coreDataService = CoreDataService.shared
+        league = LeagueModel(leagueKey: 332, leagueName: "MLS", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
     }
     
     func getDetails() {
@@ -37,7 +38,7 @@ class LeagueDetailsViewModel {
         getLatestResults()
     }
     
-    private func getUpcomingEvents() {
+    func getUpcomingEvents() {
         let upcomingURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .nextYear)
         nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
@@ -51,14 +52,11 @@ class LeagueDetailsViewModel {
                 return
             }
             self?.upcomingEvents = response.result
-            DispatchQueue.main.async {
-//                self?.bindResultToVC()
-                self?.doneRequests[0] = 1
-            }
+            self?.doneRequests[0] = 1
         }
     }
     
-    private func getLatestResults() {
+    func getLatestResults() {
         let latestURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .prevYear)
         nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
@@ -73,18 +71,13 @@ class LeagueDetailsViewModel {
             }
             self?.latestEvents = response.result
             self?.getTeams()
-            DispatchQueue.main.async {
-//                self?.bindResultToVC()
-                self?.doneRequests[1] = 1
-            }
+            self?.doneRequests[1] = 1
         }
     }
     
-    private func getTeams() {
+    func getTeams() {
         teams = TeamsFromEventGenerator.getTeams(events: latestEvents)
-        DispatchQueue.main.async {
-            self.bindResultToVC()
-        }
+        self.bindResultToVC()
     }
     
     func addToFavorites() {

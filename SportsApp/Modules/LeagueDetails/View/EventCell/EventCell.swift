@@ -44,7 +44,7 @@ class EventCell: UICollectionViewCell {
         homeLabel.text = event.eventHomeTeam
         awayImage.kf.setImage(with: URL(string: event.awayTeamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
         awayLabel.text = event.eventAwayTeam
-        leagueImage.kf.setImage(with: URL(string: event.leagueLogo ?? ""), placeholder: UIImage(named: "leagueLogo"))
+//        leagueImage.kf.setImage(with: URL(string: event.leagueLogo ?? ""), placeholder: UIImage(named: "leagueLogo"))
         scoreLabel.text = event.eventFinalResult
         dateLabel.text = event.eventDate
         timeLabel.text = event.eventTime

@@ -8,15 +8,15 @@
 import UIKit
 import Kingfisher
 class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    @IBOutlet weak var noResultImgView: UIImageView!
+    let indicator = UIActivityIndicatorView(style: .large)
+    var viewModel : TeamDetailsViewModel!
     
+    @IBOutlet weak var noResultImgView: UIImageView!
     @IBOutlet weak var imgViewBG: UIImageView!
     @IBOutlet weak var logoImgView: UIImageView!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var coachNameLabel: UILabel!
     @IBOutlet weak var playersTableView: UITableView!
-    let indicator = UIActivityIndicatorView(style: .large)
-    var viewModel : TeamDetailsViewModel!
     
     required init?(coder: NSCoder) {
         self.viewModel = TeamDetailsViewModel()
@@ -29,41 +29,48 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
         setupViewModel()
     }
     
-    private func setupUI(){
+    private func setupUI() {
         addGradientToBGImage()
         configTable()
         setupIndicator()
         checkSport()
         viewModel.getTeamDetails()
     }
-    private func setupViewModel(){
-        viewModel.bindResultToViewController = {
-            self.logoImgView.kf.setImage(with: URL(string: self.viewModel.team[0].teamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
-            self.teamNameLabel.text = self.viewModel.team[0].teamName
-            let coachName = self.viewModel.team[0].coaches?[0].coachName ?? ""
-            if coachName == "" {
-                self.coachNameLabel.text = coachName
-            }else {
-                self.coachNameLabel.text = "Coach: \(coachName)"
+    
+    private func setupViewModel() {
+        viewModel.bindResultToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                self?.logoImgView.kf.setImage(with: URL(string: self?.viewModel.team[0].teamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
+                self?.teamNameLabel.text = self?.viewModel.team[0].teamName
+                let coachName = self?.viewModel.team[0].coaches?[0].coachName ?? ""
+                if coachName == "" {
+                    self?.coachNameLabel.text = coachName
+                } else {
+                    self?.coachNameLabel.text = "Coach: \(coachName)"
+                }
+                self?.playersTableView.reloadData()
+                self?.indicator.stopAnimating()
+                self?.indicator.removeFromSuperview()
             }
-            self.playersTableView.reloadData()
-            self.indicator.stopAnimating()
-            self.indicator.removeFromSuperview()
         }
-        viewModel.noResultFound = {
-            self.indicator.stopAnimating()
-            self.indicator.removeFromSuperview()
-            self.noResultImgView.isHidden = false
+        
+        viewModel.noResultFound = { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator.stopAnimating()
+                self?.indicator.removeFromSuperview()
+                self?.noResultImgView.isHidden = false
+            }
         }
     }
-    private func configTable(){
+    
+    private func configTable() {
         playersTableView.delegate = self
         playersTableView.dataSource = self
         let nib = UINib(nibName: "PlayerCell", bundle: nil)
         playersTableView.register(nib, forCellReuseIdentifier: "PlayerCell")
     }
     
-    private func addGradientToBGImage(){
+    private func addGradientToBGImage() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = imgViewBG.bounds
         gradientLayer.colors = [
@@ -78,7 +85,8 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
         
         imgViewBG.layer.addSublayer(gradientLayer)
     }
-    private func checkSport(){
+    
+    private func checkSport() {
         switch viewModel.getSportType() {
         case .football:
             imgViewBG.image = UIImage(named: "footballBG")
@@ -90,7 +98,8 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
             imgViewBG.image = UIImage(named: "tennisBG")
         }
     }
-    private func setupIndicator(){
+    
+    private func setupIndicator() {
         indicator.center = view.center
         view.addSubview(indicator)
         indicator.startAnimating()
@@ -100,6 +109,7 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getPlayersCount() ?? 0
     }
@@ -113,5 +123,5 @@ class TeamDetailsVC: UIViewController, UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-
+    
 }

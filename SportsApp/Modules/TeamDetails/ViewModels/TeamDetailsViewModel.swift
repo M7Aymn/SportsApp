@@ -8,7 +8,7 @@
 import Foundation
 
 
-class TeamDetailsViewModel{
+class TeamDetailsViewModel {
     var sport : Sport?
     var teamID : Int?
     var nwService : NWServiceProtocol!
@@ -26,7 +26,7 @@ class TeamDetailsViewModel{
         nwService = NWService()
     }
     
-    func getTeamDetails(){
+    func getTeamDetails() {
         guard let sport = sport else {return}
         guard let teamID = teamID else {return}
         guard let url = API.getTeamDetailsURL(sport: sport, TeamID: teamID) else {return}
@@ -47,15 +47,15 @@ class TeamDetailsViewModel{
         }
     }
     
-    func getPlayersCount()->Int?{
+    func getPlayersCount() -> Int? {
         return players.count
     }
     
-    func getPlayer(index: Int)->Player{
+    func getPlayer(index: Int) -> Player {
         return players[index]
     }
     
-    func getSportType()->Sport{
+    func getSportType() -> Sport {
         return sport!
     }
 }

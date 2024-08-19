@@ -9,12 +9,14 @@ import UIKit
 
 class AllSportsVC: UIViewController {
     let viewModel : AllSportsViewModel!
+    
+    @IBOutlet weak var sportsCollectionView: UICollectionView!
+    
     required init?(coder: NSCoder) {
         self.viewModel = AllSportsViewModel()
         super.init(coder: coder)
     }
     
-    @IBOutlet weak var sportsCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()

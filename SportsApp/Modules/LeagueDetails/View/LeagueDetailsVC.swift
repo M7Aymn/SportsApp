@@ -40,12 +40,16 @@ class LeagueDetailsVC: UIViewController {
     }
     
     func setupViewModel() {
-        viewModel.stopIndicator = {
-            self.indicator.stopAnimating()
+        viewModel.stopIndicator = { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator.stopAnimating()
+            }
         }
         
         viewModel.bindResultToVC = {
-            self.leagueCollectionView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.leagueCollectionView.reloadData()
+            }
         }
     }
     
@@ -143,14 +147,14 @@ extension LeagueDetailsVC: UICollectionViewDelegate, UICollectionViewDataSource 
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "TeamDetailsSegue" {
-                if let nextViewController = segue.destination as? TeamDetailsVC {
-                    let (sport, teamKey) = sender as! (Sport, Int)
-                    nextViewController.viewModel.sport = sport
-                    nextViewController.viewModel.teamID = teamKey
-                }
+        if segue.identifier == "TeamDetailsSegue" {
+            if let nextViewController = segue.destination as? TeamDetailsVC {
+                let (sport, teamKey) = sender as! (Sport, Int)
+                nextViewController.viewModel.sport = sport
+                nextViewController.viewModel.teamID = teamKey
             }
         }
+    }
 }
 
 

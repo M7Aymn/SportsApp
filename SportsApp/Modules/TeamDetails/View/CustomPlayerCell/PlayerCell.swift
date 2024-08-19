@@ -35,7 +35,7 @@ class PlayerCell: UITableViewCell {
         playerNameLabel.text = player.playerName
         if player.playerNumber == ""{
             playerNumberLabel.text = "0"
-        }else {
+        } else {
             playerNumberLabel.text = player.playerNumber
         }
     }

@@ -16,6 +16,7 @@ class AllLeaguesTVC: UITableViewController {
         self.viewModel = AllLeaguesViewModel()
         super.init(coder: coder)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -37,23 +38,27 @@ class AllLeaguesTVC: UITableViewController {
     
     func setupViewModel() {
         viewModel.bindResultToVC = {
-            self.indicator.stopAnimating()
-            self.tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.indicator.stopAnimating()
+                self?.tableView.reloadData()
+            }
         }
         
-        viewModel.showNoFavoriteImage = { showImage in
-            self.tableView.isScrollEnabled = !showImage
-            self.noFavoriteImageView.isHidden = !showImage
+        viewModel.showNoFavoriteImage = { [weak self] showImage in
+            DispatchQueue.main.async {
+                self?.tableView.isScrollEnabled = !showImage
+                self?.noFavoriteImageView.isHidden = !showImage
+            }
         }
     }
     
-    private func setupIndicator(){
+    private func setupIndicator() {
         indicator.center = view.center
         view.addSubview(indicator)
         indicator.startAnimating()
     }
     
-    private func setupNoFavoriteImage(){
+    private func setupNoFavoriteImage() {
         noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
         noFavoriteImageView.image = UIImage(named: "noFavorites")
         noFavoriteImageView.contentMode = .scaleAspectFit
@@ -62,17 +67,16 @@ class AllLeaguesTVC: UITableViewController {
         view.addSubview(noFavoriteImageView)
         noFavoriteImageView.isHidden = true
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getNumberOfLeagues()
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leagueCell", for: indexPath) as! LeagueCell
@@ -91,7 +95,7 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         Connectivity.shared.check { [weak self] connected in
             if connected {
                 self?.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
@@ -104,15 +108,15 @@ class AllLeaguesTVC: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "leagueDetailsSegue" {
-                if let nextVC = segue.destination as? LeagueDetailsVC {
-                    let index = sender as! Int
-                    let sport = (viewModel.isFav) ? (viewModel.sports[index]) : (viewModel.sport ?? .football)
-                    nextVC.viewModel.sport = sport
-                    nextVC.viewModel.league = viewModel.getLeague(index: index)
-                }
+        if segue.identifier == "leagueDetailsSegue" {
+            if let nextVC = segue.destination as? LeagueDetailsVC {
+                let index = sender as! Int
+                let sport = (viewModel.isFav) ? (viewModel.sports[index]) : (viewModel.sport ?? .football)
+                nextVC.viewModel.sport = sport
+                nextVC.viewModel.league = viewModel.getLeague(index: index)
             }
         }
+    }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
