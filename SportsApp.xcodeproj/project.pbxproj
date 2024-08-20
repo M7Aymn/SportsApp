@@ -35,6 +35,8 @@
 		C6A4B5DC2C6F8C2A0058829B /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A4B5DB2C6F8C2A0058829B /* TeamModel.swift */; };
 		C6A8925F2C727590006F6316 /* NoEventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A8925D2C727590006F6316 /* NoEventCell.swift */; };
 		C6A892602C727590006F6316 /* NoEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6A8925E2C727590006F6316 /* NoEventCell.xib */; };
+		C6BB88252C740B1B00A97410 /* MockingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BB88242C740B1B00A97410 /* MockingTests.swift */; };
+		C6BB88272C740DF800A97410 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6BB88262C740DF800A97410 /* MockNetworkManager.swift */; };
 		C6D2E4A42C6AC018006A4698 /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D2E4A12C6AC018006A4698 /* TeamCell.swift */; };
 		C6D2E4A52C6AC018006A4698 /* TeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6D2E4A22C6AC018006A4698 /* TeamCell.xib */; };
 		C6D2E4A72C6AC31A006A4698 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D2E4A62C6AC31A006A4698 /* SectionHeader.swift */; };
@@ -94,6 +96,8 @@
 		C6A4B5DB2C6F8C2A0058829B /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		C6A8925D2C727590006F6316 /* NoEventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoEventCell.swift; sourceTree = "<group>"; };
 		C6A8925E2C727590006F6316 /* NoEventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoEventCell.xib; sourceTree = "<group>"; };
+		C6BB88242C740B1B00A97410 /* MockingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockingTests.swift; sourceTree = "<group>"; };
+		C6BB88262C740DF800A97410 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		C6D2E4A12C6AC018006A4698 /* TeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
 		C6D2E4A22C6AC018006A4698 /* TeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamCell.xib; sourceTree = "<group>"; };
 		C6D2E4A62C6AC31A006A4698 /* SectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 		C67AF06C2C72D90E00A032B4 /* SportsAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				C6BB88212C74092700A97410 /* Mocking */,
 				C67AF0762C72D98B00A032B4 /* NWServiceTests.swift */,
 				C67AF0782C72D9CB00A032B4 /* ConnectivityTests.swift */,
 				C67AF07A2C72D9ED00A032B4 /* CoreDataServiceTests.swift */,
@@ -339,6 +344,15 @@
 				C6A8925E2C727590006F6316 /* NoEventCell.xib */,
 			);
 			path = NoEventCell;
+			sourceTree = "<group>";
+		};
+		C6BB88212C74092700A97410 /* Mocking */ = {
+			isa = PBXGroup;
+			children = (
+				C6BB88262C740DF800A97410 /* MockNetworkManager.swift */,
+				C6BB88242C740B1B00A97410 /* MockingTests.swift */,
+			);
+			path = Mocking;
 			sourceTree = "<group>";
 		};
 		C6D2E4A32C6AC018006A4698 /* TeamCell */ = {
@@ -572,7 +586,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C6BB88252C740B1B00A97410 /* MockingTests.swift in Sources */,
 				C61085D52C73A96400BE1D3A /* LeagueDetailsViewModelTests.swift in Sources */,
+				C6BB88272C740DF800A97410 /* MockNetworkManager.swift in Sources */,
 				C67AF07B2C72D9ED00A032B4 /* CoreDataServiceTests.swift in Sources */,
 				E2CE83D42C7385660010B103 /* TeamDetailsViewModelTests.swift in Sources */,
 				C67AF0792C72D9CB00A032B4 /* ConnectivityTests.swift in Sources */,

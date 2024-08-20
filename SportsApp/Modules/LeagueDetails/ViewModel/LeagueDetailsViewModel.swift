@@ -51,7 +51,7 @@ class LeagueDetailsViewModel {
                 self?.doneRequests[0] = 1
                 return
             }
-            self?.upcomingEvents = response.result
+            self?.upcomingEvents = response.result.reversed()
             self?.doneRequests[0] = 1
         }
     }

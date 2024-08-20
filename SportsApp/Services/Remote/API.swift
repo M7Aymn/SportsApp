@@ -64,7 +64,9 @@ enum DateRange: String {
             return "&from=\(formatter.string(from: pastYear))&to=\(formatter.string(from: prevDay))"
         case .nextYear:
             let comingYear = Calendar.current.date(byAdding: .year, value: 1, to: currentDate)!
-            return "&from=\(formatter.string(from: currentDate))&to=\(formatter.string(from: comingYear))"
+//            return "&from=\(formatter.string(from: currentDate))&to=\(formatter.string(from: comingYear))"
+            let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
+            return "&from=\(formatter.string(from: nextDay))&to=\(formatter.string(from: comingYear))"
         }
     }
 }
