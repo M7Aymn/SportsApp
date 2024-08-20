@@ -27,7 +27,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
             viewModel.bindResultToVC = {
                 XCTAssertGreaterThan(self.viewModel.getNumberOfLeagues(), 0)
                 XCTAssertEqual(self.viewModel.getLeague(index: 0).leagueKey, 4)
-                XCTAssertNotNil(self.viewModel.getYouTubeChannelURL(for: self.viewModel.leagues[0]))
+                XCTAssertNotNil(self.viewModel.getYouTubeChannelURL(for: 0))
                 expectation.fulfill()
             }
             viewModel.getLeaguesFromNetwork()
