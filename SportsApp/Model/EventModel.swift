@@ -23,7 +23,7 @@ struct EventModel: Codable {
     let eventFinalResult: String?
     let eventDate: String?
     let eventTime: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case homeTeamLogo = "home_team_logo"
         case eventHomeTeam = "event_home_team"

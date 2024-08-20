@@ -8,7 +8,7 @@
 import UIKit
 
 class AllLeaguesTVC: UITableViewController {
-    let viewModel : AllLeaguesViewModel!
+    let viewModel: AllLeaguesViewModel!
     let indicator = UIActivityIndicatorView(style: .large)
     let noFavoriteImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
     
@@ -29,9 +29,29 @@ class AllLeaguesTVC: UITableViewController {
         viewModel.loadLeaguesTable()
     }
     
-    func setupUI() {
+    private func setupUI() {
         setupIndicator()
         setupNoFavoriteImage()
+        setupTableView()
+    }
+    
+    private func setupIndicator() {
+        indicator.center = view.center
+        view.addSubview(indicator)
+        indicator.startAnimating()
+    }
+    
+    private func setupNoFavoriteImage() {
+        noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
+        noFavoriteImageView.image = UIImage(named: "noFavorites")
+        noFavoriteImageView.contentMode = .scaleAspectFit
+        noFavoriteImageView.layer.cornerRadius = 150
+        noFavoriteImageView.layer.masksToBounds = true
+        view.addSubview(noFavoriteImageView)
+        noFavoriteImageView.isHidden = true
+    }
+    
+    private func setupTableView() {
         let nib = UINib(nibName: "LeagueCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "leagueCell")
     }
@@ -52,22 +72,6 @@ class AllLeaguesTVC: UITableViewController {
         }
     }
     
-    private func setupIndicator() {
-        indicator.center = view.center
-        view.addSubview(indicator)
-        indicator.startAnimating()
-    }
-    
-    private func setupNoFavoriteImage() {
-        noFavoriteImageView.center = CGPoint(x: view.center.x, y: view.center.y * 0.75)
-        noFavoriteImageView.image = UIImage(named: "noFavorites")
-        noFavoriteImageView.contentMode = .scaleAspectFit
-        noFavoriteImageView.layer.cornerRadius = 150
-        noFavoriteImageView.layer.masksToBounds = true
-        view.addSubview(noFavoriteImageView)
-        noFavoriteImageView.isHidden = true
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,20 +87,20 @@ class AllLeaguesTVC: UITableViewController {
         let selectedLeague = viewModel.getLeague(index: indexPath.row)
         cell.setupCell(league: selectedLeague)
         cell.buttonTapped = {
-            self.navigateToSafari(for: selectedLeague)
+            self.navigateToSafari(for: indexPath.row)
         }
         return cell
     }
     
-    private func navigateToSafari(for league: LeagueModel) {
-        if let url = self.viewModel.getYouTubeChannelURL(for: league){
+    private func navigateToSafari(for index: Int) {
+        if let url = self.viewModel.getYouTubeChannelURL(for: index) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        Connectivity.shared.check { [weak self] connected in
+        viewModel.connectivity.checkConnectivity { [weak self] connected in
             if connected {
                 self?.performSegue(withIdentifier: "leagueDetailsSegue", sender: indexPath.row)
             } else {

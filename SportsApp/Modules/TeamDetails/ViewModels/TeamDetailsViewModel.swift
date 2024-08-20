@@ -9,9 +9,9 @@ import Foundation
 
 
 class TeamDetailsViewModel {
+    var networkService : NetworkServiceProtocol!
     var sport : Sport?
     var teamID : Int?
-    var nwService : NWServiceProtocol!
     var team : [TeamModel] = [] {
         didSet{
             self.players = team[0].players ?? []
@@ -19,22 +19,22 @@ class TeamDetailsViewModel {
         }
     }
     var players : [Player] = []
-    var bindResultToViewController : (()->Void) = {}
-    var noResultFound : (()->Void) = {}
+    var bindResultToViewController : (()->()) = {}
+    var noResultFound : (()->()) = {}
     
-    init(){
-        nwService = NWService()
+    init() {
+        networkService = NetworkService()
     }
     
     func getTeamDetails() {
         guard let sport = sport else {return}
         guard let teamID = teamID else {return}
-        guard let url = API.getTeamDetailsURL(sport: sport, TeamID: teamID) else {return}
-        nwService.fetchData(url: url, model: TeamModelAPIResponse.self) { result, error in
+        guard let url = API.getTeamDetailsURL(sport: sport, teamID: teamID) else {return}
+        networkService.fetchData(url: url, model: TeamModelAPIResponse.self) { result, error in
             if error != nil {
                 self.noResultFound()
             }
-            if let result = result{
+            if let result = result {
                 self.team = result.result
                 if self.team[0].players == nil || self.team[0].players!.isEmpty {
                     self.noResultFound()
@@ -43,11 +43,10 @@ class TeamDetailsViewModel {
                 print(error!)
                 self.noResultFound()
             }
-            
         }
     }
     
-    func getPlayersCount() -> Int? {
+    func getPlayersCount() -> Int {
         return players.count
     }
     
@@ -56,6 +55,6 @@ class TeamDetailsViewModel {
     }
     
     func getSportType() -> Sport {
-        return sport!
+        return sport ?? .football
     }
 }

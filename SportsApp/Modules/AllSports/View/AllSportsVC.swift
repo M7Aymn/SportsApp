@@ -8,13 +8,17 @@
 import UIKit
 
 class AllSportsVC: UIViewController {
-    let viewModel : AllSportsViewModel!
+    let viewModel: AllSportsViewModel!
     
     @IBOutlet weak var sportsCollectionView: UICollectionView!
     
     required init?(coder: NSCoder) {
         self.viewModel = AllSportsViewModel()
         super.init(coder: coder)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     override func viewDidLoad() {
@@ -29,17 +33,24 @@ class AllSportsVC: UIViewController {
     }
     
     func setupUI() {
+        setupCollectionView()
+        setupObserver()
+    }
+    
+    func setupCollectionView() {
         sportsCollectionView.delegate = self
         sportsCollectionView.dataSource = self
         
         sportsCollectionView.register(UINib(nibName: "SportCell", bundle: nil), forCellWithReuseIdentifier: "SportCell")
-        
+    }
+    
+    func setupObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange),name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     func setupViewModel() {
         viewModel.navigateToAllLeaguesTVC = { index in
-            Connectivity.shared.check { [weak self] connected in
+            self.viewModel.connectivity.checkConnectivity { [weak self] connected in
                 if connected {
                     let allLeaguesVC = self?.storyboard?.instantiateViewController(identifier: "allLeagues") as! AllLeaguesTVC
                     allLeaguesVC.title = (self?.viewModel.sports[index].title ?? "") + " Leagues"

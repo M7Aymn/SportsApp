@@ -10,7 +10,7 @@ import XCTest
 
 final class ConnectivityTests: XCTestCase {
 
-    var connectivity: Connectivity!
+    var connectivity: ConnectivityProtocol!
     
     override func setUpWithError() throws {
         connectivity = Connectivity.shared
@@ -22,7 +22,7 @@ final class ConnectivityTests: XCTestCase {
 
     func testConnectivity() throws {
         let expectedObject = XCTestExpectation(description: "waiting for connection status")
-        connectivity.check { _ in
+        connectivity.checkConnectivity { _ in
             expectedObject.fulfill()
         }
         wait(for: [expectedObject], timeout: 3)

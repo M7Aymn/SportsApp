@@ -8,16 +8,15 @@
 import Foundation
 
 class LeagueDetailsViewModel {
-    var nwService: NWServiceProtocol
-    var coreDataService: CoreDataServiceProtocol
-    var sport: Sport = .football
+    let networkService: NetworkServiceProtocol!
+    let coreDataService: CoreDataServiceProtocol!
+    var sport: Sport
     var league: LeagueModel
     var upcomingEvents: [EventModel] = []
     var latestEvents: [EventModel] = []
     var teams: [TeamModel] = []
     var bindResultToVC: (()->()) = {}
     var stopIndicator: (()->()) = {}
-    
     var doneRequests = [0, 0] {
         didSet {
             bindResultToVC()
@@ -28,8 +27,9 @@ class LeagueDetailsViewModel {
     }
     
     init() {
-        nwService = NWService()
+        networkService = NetworkService()
         coreDataService = CoreDataService.shared
+        sport = .football
         league = LeagueModel(leagueKey: 332, leagueName: "MLS", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
     }
     
@@ -40,7 +40,7 @@ class LeagueDetailsViewModel {
     
     func getUpcomingEvents() {
         let upcomingURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .nextYear)
-        nwService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
+        networkService.fetchData(url: upcomingURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
                 self?.doneRequests[0] = 1
@@ -58,7 +58,7 @@ class LeagueDetailsViewModel {
     
     func getLatestResults() {
         let latestURL = API.getLeagueDetailsURL(sport: sport, leagueID: league.leagueKey, forDate: .prevYear)
-        nwService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
+        networkService.fetchData(url: latestURL, model: EventModelAPIResponse.self) { [weak self] response, error in
             if let error = error {
                 print(error.localizedDescription)
                 self?.doneRequests[1] = 1
@@ -85,10 +85,10 @@ class LeagueDetailsViewModel {
     }
     
     func removeFromFavorites() {
-        coreDataService.deleteLeague(key: league.leagueKey, sport: sport)
+        coreDataService.deleteLeague(leagueKey: league.leagueKey, sport: sport)
     }
     
     func checkFavorite() -> Bool {
-        return coreDataService.checkFav(key: league.leagueKey, sport: sport)
+        return coreDataService.checkFav(leagueKey: league.leagueKey, sport: sport)
     }
 }

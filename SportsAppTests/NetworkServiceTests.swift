@@ -1,5 +1,5 @@
 //
-//  NWServiceTests.swift
+//  NetworkServiceTests.swift
 //  SportsAppTests
 //
 //  Created by Mohamed Ayman on 18/08/2024.
@@ -8,16 +8,16 @@
 import XCTest
 @testable import SportsApp
 
-final class NWServiceTests: XCTestCase {
+final class NetworkServiceTests: XCTestCase {
 
-    var nwService: NWServiceProtocol!
+    var networkService: NetworkServiceProtocol!
     
     override func setUpWithError() throws {
-        nwService = NWService()
+        networkService = NetworkService()
     }
 
     override func tearDownWithError() throws {
-        nwService = nil
+        networkService = nil
     }
 
     func testNetworkResponseSuccess() throws {
@@ -25,7 +25,7 @@ final class NWServiceTests: XCTestCase {
         let allLeaguesURL = API.getAllLeagueURL(sport: sport)
         
         let expectedObject = XCTestExpectation(description: "waiting for API response")
-        nwService?.fetchData(url: allLeaguesURL, model: LeagueModelAPIResponse.self, completion: { result, error in
+        networkService?.fetchData(url: allLeaguesURL, model: LeagueModelAPIResponse.self, completion: { result, error in
             if let error = error {
                 XCTFail(error.localizedDescription)
             }
@@ -49,7 +49,7 @@ final class NWServiceTests: XCTestCase {
         let _ = API.getLeagueDetailsURL(sport: sport, leagueID: leagueID, forDate: prevYearDateRange)
         
         let expectedObject = XCTestExpectation(description: "waiting for API response")
-        nwService?.fetchData(url: leagueDetailsURL, model: wrongModel, completion: { result, error in
+        networkService?.fetchData(url: leagueDetailsURL, model: wrongModel, completion: { result, error in
             XCTAssertNotNil(error)
             XCTAssertNil(result)
             expectedObject.fulfill()
@@ -58,10 +58,10 @@ final class NWServiceTests: XCTestCase {
     }
 
     func testNetworkNoURLFailure() throws {
-        let _ = API.getTeamDetailsURL(sport: .football, TeamID: 332)
+        let _ = API.getTeamDetailsURL(sport: .football, teamID: 332)
         
         let expectedObject = XCTestExpectation(description: "waiting for API response")
-        nwService?.fetchData(url: nil, model: TeamModel.self, completion: { result, error in
+        networkService?.fetchData(url: nil, model: TeamModel.self, completion: { result, error in
             if let error = error {
                 XCTAssertEqual((error as NSError).domain , "URL error")
                 expectedObject.fulfill()

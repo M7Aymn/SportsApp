@@ -27,15 +27,15 @@ class EventCell: UICollectionViewCell {
     
     private func setupCellUI() {
         self.layer.cornerRadius = 16
-//        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
-//        leagueBackgroundView.layer.borderWidth = 2.0
-//        leagueBackgroundView.layer.borderColor = UIColor.green.cgColor
-//        leagueBackgroundView.layer.cornerRadius = 8
-//        leagueImage.layer.cornerRadius = 8
-//        leagueImage.clipsToBounds = true
-//        leagueBackgroundView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6).translatedBy(x: 0, y: -25)
-//        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-//        leagueBackgroundView.alpha = 0.66
+        //        leagueImage.layer.cornerRadius = leagueImage.frame.width/2
+        //        leagueBackgroundView.layer.borderWidth = 2.0
+        //        leagueBackgroundView.layer.borderColor = UIColor.green.cgColor
+        //        leagueBackgroundView.layer.cornerRadius = 8
+        //        leagueImage.layer.cornerRadius = 8
+        //        leagueImage.clipsToBounds = true
+        //        leagueBackgroundView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6).translatedBy(x: 0, y: -25)
+        //        leagueImage.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        //        leagueBackgroundView.alpha = 0.66
         leagueBackgroundView.isHidden = true
     }
     
@@ -44,7 +44,7 @@ class EventCell: UICollectionViewCell {
         homeLabel.text = event.eventHomeTeam
         awayImage.kf.setImage(with: URL(string: event.awayTeamLogo ?? ""), placeholder: UIImage(named: "teamLogo"))
         awayLabel.text = event.eventAwayTeam
-//        leagueImage.kf.setImage(with: URL(string: event.leagueLogo ?? ""), placeholder: UIImage(named: "leagueLogo"))
+        //        leagueImage.kf.setImage(with: URL(string: event.leagueLogo ?? ""), placeholder: UIImage(named: "leagueLogo"))
         scoreLabel.text = event.eventFinalResult
         dateLabel.text = event.eventDate
         timeLabel.text = event.eventTime
@@ -53,5 +53,5 @@ class EventCell: UICollectionViewCell {
             scoreLabel.text = " "
         }
     }
-
+    
 }

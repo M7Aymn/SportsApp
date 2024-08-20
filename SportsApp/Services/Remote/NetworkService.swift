@@ -1,5 +1,5 @@
 //
-//  NWService.swift
+//  NetworkService.swift
 //  SportsApp
 //
 //  Created by Mohamed Ayman on 12/08/2024.
@@ -8,11 +8,11 @@
 import Foundation
 import Alamofire
 
-protocol NWServiceProtocol {
+protocol NetworkServiceProtocol {
     func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping (T?,Error?)->Void)
 }
 
-class NWService: NWServiceProtocol {
+class NetworkService: NetworkServiceProtocol {
     func fetchData<T: Codable>(url: URL?, model: T.Type, completion: @escaping (T?,Error?)->Void) {
         guard let url = url else {
             let error = NSError(domain: "URL error", code: 0, userInfo: [NSLocalizedDescriptionKey : "URL is nil"])

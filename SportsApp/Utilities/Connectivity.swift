@@ -8,11 +8,15 @@
 import Foundation
 import Network
 
-class Connectivity {
+protocol ConnectivityProtocol {
+    func checkConnectivity(compilation: @escaping(Bool)->())
+}
+
+class Connectivity: ConnectivityProtocol {
     static let shared = Connectivity()
     private init() {}
     
-    func check(compilation: @escaping(Bool)->()) {
+    func checkConnectivity(compilation: @escaping(Bool)->()) {
         let monitor = NWPathMonitor()
         monitor.pathUpdateHandler = { path in
             let status = path.status == .satisfied

@@ -20,7 +20,7 @@ final class TeamDetailsViewModelTests: XCTestCase {
         }
 
         func testTeamDetails() throws {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "Fetching team details test")
             viewModel.sport = .football
             viewModel.teamID = 2322
             viewModel.bindResultToViewController = {
@@ -34,7 +34,7 @@ final class TeamDetailsViewModelTests: XCTestCase {
         }
         
         func testNoResultFound() throws {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "No team details result test")
             viewModel.sport = .football
             viewModel.teamID = 99999
             viewModel.noResultFound = {

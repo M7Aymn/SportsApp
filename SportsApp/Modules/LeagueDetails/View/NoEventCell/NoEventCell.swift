@@ -8,7 +8,7 @@
 import UIKit
 
 class NoEventCell: UICollectionViewCell {
-
+    
     @IBOutlet weak var noEventImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,5 +19,5 @@ class NoEventCell: UICollectionViewCell {
         self.layer.cornerRadius = 16
         noEventImage.layer.cornerRadius = 16
     }
-
+    
 }

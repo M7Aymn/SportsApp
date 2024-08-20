@@ -8,9 +8,9 @@
 import UIKit
 
 class SportCell: UICollectionViewCell {
-
     @IBOutlet weak var sportLabel: UILabel!
     @IBOutlet weak var sportImage: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCellUI()
@@ -26,5 +26,5 @@ class SportCell: UICollectionViewCell {
         sportLabel.text = title
         sportImage.image = image ?? UIImage(systemName: "sportscourt.circle.fill")
     }
-
+    
 }

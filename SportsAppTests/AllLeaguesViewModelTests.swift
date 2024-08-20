@@ -22,7 +22,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
         }
 
         func testNetwork() throws {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "Network test")
             viewModel.isFav = false
             viewModel.bindResultToVC = {
                 XCTAssertGreaterThan(self.viewModel.getNumberOfLeagues(), 0)
@@ -35,7 +35,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
         }
         
         func testFavorite() throws {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "Favorite test")
             viewModel.isFav = true
             XCTAssertTrue(viewModel.isFav)
             viewModel.coreDataService?.addLeague(league: LeagueModel(leagueKey: 332, leagueName: "Test", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil), sport: .football)
@@ -49,7 +49,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
         }
         
         func testLoadFavoriteTable() {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "Loading favorites")
             viewModel.isFav = true
             viewModel.bindResultToVC = {
                 expectation.fulfill()
@@ -59,7 +59,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
         }
         
         func testLoadNetworkTable() {
-            let expectation = XCTestExpectation(description: "")
+            let expectation = XCTestExpectation(description: "Fetching network data")
             viewModel.isFav = false
             viewModel.sport = .football
             viewModel.bindResultToVC = {
@@ -70,7 +70,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
         }
         
         func testRemoveFromFavorite() {
-            let league = LeagueModel(leagueKey: 242, leagueName: "Test", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
+            let league = LeagueModel(leagueKey: 242, leagueName: "Removing favorite item", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
             let favCount = CoreDataService.shared.fetchLeagues().0.count
             CoreDataService.shared.addLeague(league: league, sport: .basketball)
             XCTAssertEqual(CoreDataService.shared.fetchLeagues().0.count, favCount + 1)
@@ -79,7 +79,7 @@ final class AllLeaguesViewModelTests: XCTestCase {
             viewModel.sports = [.basketball]
             viewModel.removeFromFavorites(index: 0)
             XCTAssertEqual(CoreDataService.shared.fetchLeagues().0.count, favCount)
-            XCTAssertFalse(CoreDataService.shared.checkFav(key: 242, sport: .basketball))
+            XCTAssertFalse(CoreDataService.shared.checkFav(leagueKey: 242, sport: .basketball))
         }
 
 

@@ -19,6 +19,7 @@ final class CoreDataServiceTests: XCTestCase {
     }
     
     override func tearDownWithError() throws {
+        clearCache()
         coreDataService = nil
     }
     
@@ -51,7 +52,7 @@ final class CoreDataServiceTests: XCTestCase {
         let league = LeagueModel(leagueKey: 1, leagueName: "Test", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
         coreDataService.addLeague(league: league, sport: .basketball)
         XCTAssertEqual(coreDataService.fetchLeagues().0.count, 1)
-        coreDataService.deleteLeague(key: 1, sport: .basketball)
+        coreDataService.deleteLeague(leagueKey: 1, sport: .basketball)
         XCTAssertEqual(coreDataService.fetchLeagues().0.count, 0)
     }
     
@@ -59,8 +60,8 @@ final class CoreDataServiceTests: XCTestCase {
         XCTAssertEqual(coreDataService.fetchLeagues().0.count, 0)
         let league = LeagueModel(leagueKey: 1, leagueName: "Test", countryKey: nil, countryName: nil, leagueLogo: nil, countryLogo: nil, leagueYear: nil)
         coreDataService.addLeague(league: league, sport: .cricket)
-        XCTAssertTrue(coreDataService.checkFav(key: 1, sport: .cricket))
-        XCTAssertFalse(coreDataService.checkFav(key: 1, sport: .tennis))
+        XCTAssertTrue(coreDataService.checkFav(leagueKey: 1, sport: .cricket))
+        XCTAssertFalse(coreDataService.checkFav(leagueKey: 1, sport: .tennis))
     }
     
 }

@@ -3,26 +3,6 @@
     {
       "filename" : "leagueLogo.png",
       "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "light"
-        }
-      ],
-      "filename" : "leagueLogo 1.png",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "leagueLogo_white.png",
-      "idiom" : "universal"
     }
   ],
   "info" : {

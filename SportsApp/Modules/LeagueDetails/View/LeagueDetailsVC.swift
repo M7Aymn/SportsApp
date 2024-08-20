@@ -30,15 +30,6 @@ class LeagueDetailsVC: UIViewController {
         setupUI()
     }
     
-    func setupUI() {
-        title = viewModel.league.leagueName
-        setupIndicator()
-        viewModel.getDetails()
-        setupButton()
-        setupCollectionView()
-        setupCollectionViewLayout()
-    }
-    
     func setupViewModel() {
         viewModel.stopIndicator = { [weak self] in
             DispatchQueue.main.async {
@@ -51,6 +42,15 @@ class LeagueDetailsVC: UIViewController {
                 self?.leagueCollectionView.reloadData()
             }
         }
+    }
+    
+    func setupUI() {
+        title = viewModel.league.leagueName
+        setupIndicator()
+        viewModel.getDetails()
+        setupButton()
+        setupCollectionView()
+        setupCollectionViewLayout()
     }
     
     func setupIndicator() {

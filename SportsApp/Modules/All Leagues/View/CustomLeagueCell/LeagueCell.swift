@@ -11,10 +11,11 @@ import Kingfisher
 class LeagueCell: UITableViewCell {
     @IBOutlet weak var leagueImage: UIImageView!
     @IBOutlet weak var leagueName: UILabel!
-    
     @IBOutlet weak var view: UIView!
     @IBOutlet weak var button: UIButton!
-    var buttonTapped: (() -> Void)?
+    @IBOutlet weak var leagueImageBackView: UIView!
+    
+    var buttonTapped: (() -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +27,11 @@ class LeagueCell: UITableViewCell {
     }
     
     private func setupCellUI() {
-        leagueImage.layer.cornerRadius = 16
+        leagueImageBackView.layer.cornerRadius = leagueImageBackView.frame.width / 2
+        leagueImageBackView.clipsToBounds = true
+        leagueImageBackView.layer.borderColor = UIColor.systemBrown.cgColor
+        leagueImageBackView.layer.borderWidth = 1.0
+
         view.layer.cornerRadius = 16
         view.layer.borderColor = UIColor.systemBrown.cgColor
         view.layer.borderWidth = 1.0
@@ -38,7 +43,7 @@ class LeagueCell: UITableViewCell {
     }
     
     @IBAction func youtubeButtonPressed(_ sender: UIButton) {
-        buttonTapped!()
+        buttonTapped?()
     }
     
 }

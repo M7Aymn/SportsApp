@@ -11,8 +11,8 @@ import CoreData
 protocol CoreDataServiceProtocol {
     func addLeague(league: LeagueModel, sport: Sport)
     func fetchLeagues() -> ([LeagueModel], [Sport])
-    func deleteLeague(key: Int, sport: Sport)
-    func checkFav(key: Int, sport: Sport) -> Bool
+    func deleteLeague(leagueKey: Int, sport: Sport)
+    func checkFav(leagueKey: Int, sport: Sport) -> Bool
 }
 
 class CoreDataService: CoreDataServiceProtocol {
@@ -75,9 +75,9 @@ class CoreDataService: CoreDataServiceProtocol {
         return (leagues, sports)
     }
     
-    func deleteLeague(key: Int, sport: Sport) {
+    func deleteLeague(leagueKey: Int, sport: Sport) {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName:"LeagueEntity")
-        let myPredicate = NSPredicate(format: "leagueKey == %d && sport == %@", key, sport.rawValue)
+        let myPredicate = NSPredicate(format: "leagueKey == %d && sport == %@", leagueKey, sport.rawValue)
         fetchRequest.predicate = myPredicate
         do {
             let leagues = try managedContext.fetch(fetchRequest)
@@ -90,11 +90,11 @@ class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
-    func checkFav(key: Int, sport: Sport) -> Bool {
+    func checkFav(leagueKey: Int, sport: Sport) -> Bool {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName:"LeagueEntity")
-        let myPredicate = NSPredicate(format: "leagueKey == %d && sport == %@", key, sport.rawValue)
+        let myPredicate = NSPredicate(format: "leagueKey == %d && sport == %@", leagueKey, sport.rawValue)
         fetchRequest.predicate = myPredicate
-
+        
         do {
             let leagueObjects = try managedContext.fetch(fetchRequest)
             return !leagueObjects.isEmpty

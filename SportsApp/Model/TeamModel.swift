@@ -18,7 +18,7 @@ struct TeamModel: Codable {
     let teamLogo: String?
     let players: [Player]?
     let coaches: [Coach]?
-
+    
     enum CodingKeys: String, CodingKey {
         case teamKey = "team_key"
         case teamName = "team_name"
@@ -30,7 +30,7 @@ struct TeamModel: Codable {
 
 struct Coach: Codable {
     let coachName: String
-
+    
     enum CodingKeys: String, CodingKey {
         case coachName = "coach_name"
     }
@@ -43,7 +43,7 @@ struct Player: Codable {
     let playerNumber: String
     let playerType: String?
     
-
+    
     enum CodingKeys: String, CodingKey {
         case playerKey = "player_key"
         case playerImage = "player_image"
@@ -53,22 +53,3 @@ struct Player: Codable {
     }
 }
 
-struct TeamsFromEventGenerator {
-    static func getTeams(events: [EventModel]) -> [TeamModel] {
-        var teams: [TeamModel] = []
-        var teamsKey: Set<Int> = []
-        for event in events {
-            if !teamsKey.contains(event.homeTeamKey) {
-                let team = TeamModel(teamKey: event.homeTeamKey, teamName: event.eventHomeTeam ?? "", teamLogo: event.homeTeamLogo, players: nil, coaches: nil)
-                teams.append(team)
-                teamsKey.insert(event.homeTeamKey)
-            }
-            if !teamsKey.contains(event.awayTeamKey) {
-                let team = TeamModel(teamKey: event.awayTeamKey, teamName: event.eventAwayTeam ?? "", teamLogo: event.awayTeamLogo, players: nil, coaches: nil)
-                teams.append(team)
-                teamsKey.insert(event.awayTeamKey)
-            }
-        }
-        return teams
-    }
-}
